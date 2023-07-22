@@ -1,18 +1,31 @@
-/*
- *
- * HomePage
- *
- */
+import React, { useState } from "react";
+import { Plus } from "@strapi/icons";
+import { Box, Button, HeaderLayout } from "@strapi/design-system";
 
-import React from 'react';
-import pluginId from '../../pluginId';
+import SubscriptionDialog from "../../components/Dialogs/SubscriptionDialog";
 
 const HomePage = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
-    <div>
-      <h1>{pluginId}&apos;s HomePage</h1>
-      <p>Happy coding</p>
-    </div>
+    <Box>
+      <HeaderLayout
+        title="Lifecycle Notifier"
+        primaryAction={
+          <Button startIcon={<Plus />} onClick={() => setOpenModal(true)}>
+            Add new subscription
+          </Button>
+        }
+      />
+
+      {openModal ? (
+        <SubscriptionDialog
+          onClose={() => setOpenModal(false)}
+        />
+      ) : (
+        false
+      )}
+    </Box>
   );
 };
 
