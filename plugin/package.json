@@ -1,20 +1,24 @@
 {
-  "name": "plugin",
+  "name": "lifecycle-notifier",
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
-    "name": "plugin",
-    "description": "Description of plugin plugin",
+    "name": "lifecycle-notifier",
+    "description": "Description of lifecycle-notifier plugin",
     "kind": "plugin"
   },
   "dependencies": {
     "@strapi/design-system": "^1.6.3",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
+    "axios": "^1.4.0",
+    "formik": "^2.4.2",
+    "jsonschema": "^1.4.1",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@strapi/typescript-utils": "^4.6.0",
+    "@strapi/strapi": "^4.11.7",
+    "@strapi/typescript-utils": "^4.11.7",
     "@types/react": "^17.0.53",
     "@types/react-dom": "^18.0.28",
     "@types/react-router-dom": "^5.3.3",
