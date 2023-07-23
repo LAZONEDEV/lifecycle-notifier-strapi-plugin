@@ -7,6 +7,11 @@ import { RecipientOptionType } from "../../../../common/types/index";
 import { RecipientType } from "../../../../common/enums/index";
 import { getCollectionNameFormUid } from "../../../../common/utils/getCollectionNameFormUid";
 import React from "react";
+import { ConfigService } from "../../services/Config";
+import {
+  getRecipientStringValue,
+  getRecipientTypeFromString,
+} from "../../utils/recipientStringValue";
 
 export interface RecipientPickerProps extends FormFieldProps {
   collectionFormName: string;
@@ -24,9 +29,19 @@ export const RecipientPicker = ({
   const [customRecipients, setCustomRecipients] = useState<
     RecipientOptionType[]
   >([]);
+  const [envRecipients, setEnvRecipients] = useState<RecipientOptionType[]>([]);
   const [{ value: selectedCollectionName }] = useField(collectionFormName);
   const [{ value }, { error }, { setValue }] =
     useField<RecipientOptionType[]>(name);
+
+  const loadEnvRecipients = async () => {
+    const envsNames = await ConfigService.getEnvRecipients();
+    const recipientOptions = envsNames.map<RecipientOptionType>((env) => ({
+      type: RecipientType.ENV,
+      value: env,
+    }));
+    setEnvRecipients(recipientOptions);
+  };
 
   useEffect(() => {
     if (value) {
@@ -40,11 +55,21 @@ export const RecipientPicker = ({
     }
   }, []);
 
+  useEffect(() => {
+    loadEnvRecipients();
+  }, []);
+
   const modelEmailFields = useCollectionFieldType({
     collectionId: selectedCollectionName,
     collections,
     fieldType: "email",
   });
+
+  // we create string value because strapi select component does not
+  // support object as value.
+  const stringValue = useMemo(() => {
+    return (value || []).map((item) => getRecipientStringValue(item));
+  }, [value]);
 
   const modelRecipientOption = useMemo(() => {
     return modelEmailFields.map<RecipientOptionType>((item) => ({
@@ -56,6 +81,11 @@ export const RecipientPicker = ({
   const collectionName =
     selectedCollectionName && getCollectionNameFormUid(selectedCollectionName);
 
+  // transform string values to recipient value
+  const updateValue = (values: string[]) => {
+    setValue(values.map((item) => getRecipientTypeFromString(item)));
+  };
+
   return (
     <Select
       label={label}
@@ -65,23 +95,28 @@ export const RecipientPicker = ({
       onClear={() => {
         setValue([]);
       }}
-      value={value || []}
-      onChange={setValue}
+      value={stringValue}
+      onChange={updateValue}
       error={error}
       withTags
     >
-      {[...modelRecipientOption, ...customRecipients].map((field) => (
-        <Option value={field}>
-          {(()=>{
-            if(field.type === RecipientType.CUSTOM){
-              return field.value
-            } else if(field.type === RecipientType.ENV){
-              return `ENV.${field.value}`
-            }
-            return `${collectionName}.${field.value}`
-          })()}
-        </Option>
-      ))}
+      {[...envRecipients, ...modelRecipientOption, ...customRecipients].map(
+        (field) => {
+          const value = getRecipientStringValue(field);
+          return (
+            <Option key={value} value={value}>
+              {(() => {
+                if (field.type === RecipientType.CUSTOM) {
+                  return field.value;
+                } else if (field.type === RecipientType.ENV) {
+                  return `ENV.${field.value}`;
+                }
+                return `${collectionName}.${field.value}`;
+              })()}
+            </Option>
+          );
+        }
+      )}
     </Select>
   );
 };
