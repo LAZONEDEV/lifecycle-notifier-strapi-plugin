@@ -39,7 +39,7 @@ export const AttachableFilePicker = ({
       withTags
       disabled={!hasMediaField}
     >
-      {mediaFields.map(field => <Option value={field}>{field}</Option>)}
+      {mediaFields.map(field => <Option key={field} value={field}>{field}</Option>)}
     </Select>
   );
 };
