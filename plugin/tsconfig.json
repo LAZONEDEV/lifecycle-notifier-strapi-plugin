@@ -1,9 +1,18 @@
 {
-  "extends": "@strapi/typescript-utils/tsconfigs/admin",
-
   "compilerOptions": {
     "target": "ESNext",
-    "strict": true
+    "strict": true,
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react",
+    "sourceMap": true,
+    "incremental": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "skipLibCheck": true
   },
 
   "include": ["admin", "custom.d.ts"],
@@ -16,5 +25,5 @@
     "server/",
     // Do not include test files
     "**/*.test.ts"
-  ]
+  ],
 }
