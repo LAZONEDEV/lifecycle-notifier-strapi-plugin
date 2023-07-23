@@ -25,6 +25,8 @@ import { AttachableFilePicker } from "../Inputs/AttachableFilePicker";
 import { RecipientPicker } from "../Inputs/RecipientPicker";
 import TextareaField from "../Inputs/TextareaField";
 import { SubscriptionEntry } from "../../../../common/types";
+import { SubscriptionService } from "../../services/Subscription";
+import { subscriptionFormValidationSchema } from "../../utils/formValidation";
 
 export interface SubscriptionDialogProps {
   onClose: () => void;
@@ -43,11 +45,20 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
     request.then((result) => {
       const apiCollections = filterApiCollection(result.data.data);
       setCollections(apiCollections);
-      setLoading(false)
+      setLoading(false);
     });
 
     return () => abort();
   }, []);
+
+  const onSubmit = async (values: SubscriptionEntry) => {
+    if (editing) {
+      await SubscriptionService.update(editing.id, values);
+    } else {
+      await SubscriptionService.create(values);
+    }
+    onClose();
+  };
 
   return (
     <ModalLayout labelledBy="add-subscription-title" onClose={onClose}>
@@ -62,20 +73,17 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
         </Flex>
       ) : (
         <Formik<SubscriptionEntry>
+          validationSchema={subscriptionFormValidationSchema}
           initialValues={editing || (initialValues as SubscriptionEntry)}
-          onSubmit={() => {}}
+          onSubmit={onSubmit}
         >
-          {() => (
+          {({ submitForm, isSubmitting }) => (
             <>
               <ModalBody>
                 <Form>
                   <Grid gap={4}>
                     <GridItem padding={1} col={12}>
-                      <InputField
-                        name="title"
-                        label="Title"
-                        placeholder="Subscription for ..."
-                      />
+                      <InputField name="subject" label="Subject" />
                     </GridItem>
 
                     <GridItem padding={1} col={6}>
@@ -89,7 +97,10 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                     </GridItem>
 
                     <GridItem padding={1} col={6}>
-                      <CollectionPicker name="collectionName" collections={collections} />
+                      <CollectionPicker
+                        name="collectionName"
+                        collections={collections}
+                      />
                     </GridItem>
 
                     <GridItem padding={1} col={6}>
@@ -114,10 +125,10 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={12}>
                       <TextareaField
-                        label="Mail content"
-                        rows={8}
+                        label="Template"
                         name="content"
-                        placeholder="Html code for the email content"
+                        placeholder="Template code for the mail"
+                        hint="You can inject the entry data using this syntax <%= fieldName =>."
                       />
                     </GridItem>
                   </Grid>
@@ -131,8 +142,12 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                   </Button>
                 }
                 endActions={
-                  <Button type="submit" onClick={() => {}}>
-                    Add subscription
+                  <Button
+                    loading={isSubmitting}
+                    type="submit"
+                    onClick={submitForm}
+                  >
+                    {editing ? "Update subscription" : "Add subscription"}
                   </Button>
                 }
               />
