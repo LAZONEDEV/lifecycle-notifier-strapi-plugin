@@ -1,4 +1,4 @@
-import pluginId from "../utils/plugin"
+import pluginId from "../utils/pluginId"
 
 export const subscriptionCollectionName = "lifecycle-subscription"
 export const subscriptionCollectionUid = `plugin::${pluginId}.${subscriptionCollectionName}`
