@@ -1,3 +1,3 @@
-# Strapi plugin plugin
+# Strapi plugin lifecycle-notifier
 
-A quick description of plugin.
+A quick description of lifecycle-notifier.
