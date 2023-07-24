@@ -132,7 +132,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         label="Template"
                         name="content"
                         placeholder="Template code for the mail"
-                        hint="You can inject the entry data using this syntax <%= fieldName =>."
+                        hint="You can inject the entry data using this syntax <%= fieldName %>."
                       />
                     </GridItem>
                   </Grid>
