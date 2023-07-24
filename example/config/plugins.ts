@@ -48,7 +48,7 @@ export default ({ env }) => ({
               value: "custom@gmail.com",
             },
           ],
-          content: "Just send the name: <%= name =>",
+          content: "Just send the name: <%= name %>",
           mediaFields: ["image"],
           createdAt: "2023-07-23T19:34:24.654Z",
           updatedAt: "2023-07-23T20:01:03.075Z",
