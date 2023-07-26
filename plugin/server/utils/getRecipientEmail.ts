@@ -7,5 +7,5 @@ export const getRecipientEmail = (value: RecipientOptionType, collectionEntry: o
   } else if(value.type === RecipientType.FORM_MODEL){
     return collectionEntry[value.value]
   }
-  return process.env[value.value] || "bocovojuste@gmail.com"
+  return process.env[value.value]
 }
