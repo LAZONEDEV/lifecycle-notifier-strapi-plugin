@@ -28,6 +28,6 @@ export interface AttrConfig {
   type: string;
 }
 
-export interface GetCollectionSchemaResult {
+export interface CollectionSchemaResult {
   data: CollectionSchema[]
 }
