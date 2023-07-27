@@ -22,7 +22,7 @@ export const AttachableFilePicker = ({
 
   const mediaFields = useCollectionFieldType({collectionId:selectedCollectionName,collections,fieldType:"media"})
 
-  const hasMediaField = mediaFields.length > 0
+  const hasMediaField = !!mediaFields.length
 
   return (
     <Select
