@@ -34,7 +34,7 @@ export default ({ env }) => ({
   },
   "lifecycle-notifier": {
     enabled: true,
-    resolve: "../plugin",
+    resolve: "/Users/justebocovo/Documents/code/lazone/lifecycle-notifier/",
     config: {
       envRecipients: ["TEST_RECIPIENT_EMAIL"],
       defaultFrom: env("DEFAULT_MAIL_FROM"),
