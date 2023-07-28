@@ -1,10 +1,10 @@
 import { CollectionSchema, CollectionSchemaResult } from "../types";
-import axios from "./axios"
+import fetchInstance from "./fetchInstance"
 
 export const loadCollectionsSchemas = () => {
   const controller = new AbortController();
 
-  const result = axios.get<CollectionSchemaResult>("/content-manager/content-types", { signal: controller.signal });
+  const result = fetchInstance.get<CollectionSchemaResult>("/content-manager/content-types", { signal: controller.signal });
 
   return [result, () => controller.abort()] as const
 }

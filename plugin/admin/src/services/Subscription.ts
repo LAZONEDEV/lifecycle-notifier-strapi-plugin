@@ -1,4 +1,4 @@
-import instance from "../utils/axios";
+import instance from "../utils/fetchInstance";
 import { subscriptionCollectionUid } from "../../../common/constants/index";
 import { SubscriptionEntry } from "../../../common/types/index";
 
@@ -6,12 +6,12 @@ export class SubscriptionService {
   static baseUrl = `/content-manager/collection-types/${subscriptionCollectionUid}`;
   static async get() {
     const subs = await instance.get(SubscriptionService.baseUrl);
-    return subs.data.results as SubscriptionEntry[];
+    return subs.results as SubscriptionEntry[];
   }
 
   static async create(data: Omit<SubscriptionEntry, "id">) {
     const result = await instance.post<SubscriptionEntry>(SubscriptionService.baseUrl, data);
-    return result.data;
+    return result;
   }
 
   static async delete (id: string){

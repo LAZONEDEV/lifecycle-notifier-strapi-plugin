@@ -11,7 +11,6 @@
     "@strapi/design-system": "^1.6.3",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
-    "axios": "^1.4.0",
     "formik": "^2.4.2",
     "jsonschema": "^1.4.1",
     "yup": "^1.2.0"

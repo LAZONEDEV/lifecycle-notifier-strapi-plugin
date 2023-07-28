@@ -43,8 +43,10 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
     setLoading(true);
     const [request, abort] = loadCollectionsSchemas();
     request.then((result) => {
-      const apiCollections = filterApiCollection(result.data.data);
-      setCollections(apiCollections);
+      if(result){
+        const apiCollections = filterApiCollection(result.data);
+        setCollections(apiCollections);
+      }
       setLoading(false);
     });
 

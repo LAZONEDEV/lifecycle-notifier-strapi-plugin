@@ -1,11 +1,11 @@
-import axios from "../utils/axios";
+import fetchInstance from "../utils/fetchInstance";
 
 export class ConfigService {
-  static baseUrl = "lifecycle-notifier/";
+  static baseUrl = "/lifecycle-notifier/";
   static async getEnvRecipients() {
-    const result = await axios.get<string[]>(
+    const result = await fetchInstance.get<string[]>(
       `${ConfigService.baseUrl}env-recipients`
     );
-    return result.data;
+    return result;
   }
 }

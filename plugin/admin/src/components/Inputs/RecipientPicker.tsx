@@ -36,6 +36,10 @@ export const RecipientPicker = ({
 
   const loadEnvRecipients = async () => {
     const envsNames = await ConfigService.getEnvRecipients();
+    if(!envsNames){
+      return;
+    }
+
     const recipientOptions = envsNames.map<RecipientOptionType>((env) => ({
       type: RecipientType.ENV,
       value: env,
