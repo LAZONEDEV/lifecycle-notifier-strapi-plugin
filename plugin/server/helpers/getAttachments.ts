@@ -15,8 +15,9 @@ const fetchMedia = async (
   // @ts-ignore
   const request = await fetch(signedMedia.url);
   const blob = await request.blob();
-  const arrayBuffer = await blob.arrayBuffer()
-  return Buffer.from(arrayBuffer);
+  const arrayBuffer = await blob.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  return buffer;
 };
 
 export const getAttachments = async (medias: StrapiMedia[]) => {
