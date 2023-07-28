@@ -101,7 +101,7 @@ Recipients of type ENV are defined in the plugin configurations and must referen
 
 ```json
 {
-  ...
+  // ...
   "lifecycle-notifier": {
     enabled: true,
     resolve: "../plugin",
@@ -109,7 +109,7 @@ Recipients of type ENV are defined in the plugin configurations and must referen
       envRecipients: ["TEST_RECIPIENT_EMAIL"],
     },
   },
-  ...
+  // ...
 }
 ```
 
@@ -126,7 +126,7 @@ You can also add subscriptions from the plugin configuration. This allows you to
 
 ```json
 {
-  ...
+  // ...
   "lifecycle-notifier": {
     enabled: true,
     resolve: "../plugin",
@@ -150,7 +150,7 @@ You can also add subscriptions from the plugin configuration. This allows you to
       ],
     },
   }
-  ...
+  // ...
 }
 ```
 
@@ -159,7 +159,7 @@ You can also add subscriptions from the plugin configuration. This allows you to
 Example configuration
 
 ```json
-...
+// ...
 {
   // Define environment variable recipients for the plugin. The plugin will fetch the email address from the environment variable "TEST_RECIPIENT_EMAIL".
   envRecipients: ["TEST_RECIPIENT_EMAIL"],
@@ -170,7 +170,7 @@ Example configuration
   // Define the list of subscriptions.
   subscriptions: [] 
 }
-...
+// ...
 ```
 
 ## Contributions
