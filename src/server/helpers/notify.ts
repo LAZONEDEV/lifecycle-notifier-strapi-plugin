@@ -1,20 +1,26 @@
 import { RecipientOptionType, SubscriptionEntry } from "../../common/types";
 import { ConfigKeys, MailOptions, StrapiMedia } from "../types";
 import { getRecipientEmail } from "../utils/getRecipientEmail";
+import { isMediaEntry } from "../utils/isMediaEntry";
 import { getAttachments } from "./getAttachments";
+import { getMediasFromIds } from "./getMediasFormIds";
 import { getPluginConfig } from "./getPluginConfig";
 import { sendEmail } from "./sendEmail";
 
-export const notify = async (subscription: SubscriptionEntry, recipient: RecipientOptionType, entry: Record<string, any>) => {
+export const notify = async (
+  subscription: SubscriptionEntry,
+  recipient: RecipientOptionType,
+  entry: Record<string, any>
+) => {
   const mailTo = getRecipientEmail(recipient, entry);
   if (mailTo) {
     const mailOptions: MailOptions = {
       to: mailTo,
-    }
+    };
 
     const defaultFrom = getPluginConfig(ConfigKeys.DEFAULT_MAIL_FROM);
 
-    if(defaultFrom){
+    if (defaultFrom) {
       mailOptions.from = defaultFrom as string;
     }
 
@@ -24,18 +30,59 @@ export const notify = async (subscription: SubscriptionEntry, recipient: Recipie
       subject: subscription.subject,
     };
 
-    if(subscription.mediaFields?.length){
-      const medias = subscription.mediaFields.reduce( (acc, field) => {
-        if(entry[field]){
-          return [...acc, ...entry[field]]
-        }
-        return acc;
-      },[] as StrapiMedia[])
+    if (subscription.mediaFields?.length) {
+      const medias: StrapiMedia[] = [];
+      const mediasToLoadIds: number[] = [];
 
-      const attachments = await getAttachments(medias)
-      mailOptions.attachments =attachments
+      for (const field of subscription.mediaFields) {
+        const mediaValue = entry[field];
+        if (!mediaValue) {
+          continue;
+        }
+
+        if (Array.isArray(mediaValue)) {
+          // the value of the field on the entry is an array
+          // of media file
+          medias.push(...mediaValue);
+          continue;
+        }
+
+        if (typeof mediaValue === "number") {
+          // the value of the field on the entry is an id
+          // of a media file
+          mediasToLoadIds.push(mediaValue);
+          continue;
+        }
+
+        if (isMediaEntry(mediaValue)) {
+          medias.push(mediaValue);
+          continue;
+        }
+
+        console.error(
+          `Unexpected value type: ${typeof mediaValue} value: ${JSON.stringify(
+            mediaValue
+          )} for field: ${field}. The expected type is array or number.`
+        );
+      }
+
+      // load the media file from db
+      if (mediasToLoadIds.length) {
+        try {
+          const restFiles = await getMediasFromIds(mediasToLoadIds);
+          medias.push(...restFiles);
+        } catch (error) {
+          console.error(
+            "The error below occurred while loading the media files from the database"
+          );
+          console.error(error);
+        }
+      }
+
+      const attachments = await getAttachments(medias);
+      mailOptions.attachments = attachments;
     }
 
     sendEmail(mailOptions, templateData, entry).catch(console.error);
   }
-}
+};

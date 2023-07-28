@@ -7,3 +7,7 @@ export const getCollectionEntityManager = (collectionUid: string) => {
 export const getSubscriptionEntityManager = () => {
   return getCollectionEntityManager(subscriptionCollectionUid);
 };
+
+export const getMediaFileEntityManager = () => {
+  return getCollectionEntityManager("plugin::upload.file");
+}
