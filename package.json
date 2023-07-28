@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
-    "name": "Lifecycle notifier",
+    "name": "lifecycle-notifier",
     "description": "Description of lifecycle-notifier plugin",
     "kind": "plugin"
   },
@@ -50,8 +50,8 @@
     "npm": ">=6.0.0"
   },
   "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
+    "develop": "tsc -b -w",
+    "build": "tsc -b"
   },
   "license": "MIT"
 }

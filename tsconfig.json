@@ -1,34 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "strict": true,
-    "module": "ES2020",
-    "moduleResolution": "node",
-    "lib": ["ES2020", "DOM"],
-    "jsx": "react",
-    "sourceMap": true,
-    "incremental": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "outDir": "dist/admin",
+    "noEmit": true
   },
 
-  "include": ["src/admin", "custom.d.ts"],
-
-  "exclude": [
-    "node_modules/",
-    "dist/",
-
-    // Do not include server files in the server compilation
-    "src/server/",
-    // Do not include test files
-    "**/*.test.ts"
+  "references": [
+    {
+      "path": "src/admin"
+    },
+    {
+      "path": "src/server"
+    }
   ],
-  "files": [
-    "src/admin/translations/en.json",
-    "src/admin/translations/fr.json",
-  ]
+
+  "include": [],
+
+  "exclude": ["node_modules/", "dist/", "src/"],
 }
