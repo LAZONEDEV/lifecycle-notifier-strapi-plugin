@@ -1,5 +1,5 @@
 import { SubscriptionEntry } from "../../common/types";
-import { getSubscriptionEntityManager } from "./getSubscriptionEm";
+import { getSubscriptionEntityManager } from "./getEntityManager";
 
 export const insertSubscription = (subscription: SubscriptionEntry) => {
   const em = getSubscriptionEntityManager();
