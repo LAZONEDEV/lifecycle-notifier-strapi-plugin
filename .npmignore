@@ -1,4 +1,4 @@
-admin
-common
-server
+src
+!dist/*
+example
 node_modules
