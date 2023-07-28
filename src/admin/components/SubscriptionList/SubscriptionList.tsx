@@ -42,7 +42,7 @@ export const SubscriptionList = ({
 
   return (
     <Box padding={10} background="neutral100">
-      <Table rowCount={subList?.length}>
+      <Table colCount={3} rowCount={subList?.length}>
         <Thead>
           <Tr>
             <Th>
