@@ -48,7 +48,9 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
       setLoading(false);
     });
 
-    return () => abort();
+    return () => {
+      abort();
+    };
   }, []);
 
   const onSubmit = async (values: SubscriptionEntry) => {
