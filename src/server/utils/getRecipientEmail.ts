@@ -6,7 +6,7 @@ export const getRecipientEmail = (value: RecipientOptionType, collectionEntry: o
     return value.value
   }
 
-  if(value.type === RecipientType.FORM_MODEL){
+  if(value.type === RecipientType.FROM_MODEL){
     return collectionEntry[value.value]
   }
 
