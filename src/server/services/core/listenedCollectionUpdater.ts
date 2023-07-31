@@ -75,12 +75,13 @@ const notifyForSubscription = async (
   entry: CollectionEntry
 ) => {
   try {
-    const entryWithRelations = subscription.relations
-      ? await getEntryWithRelation(
-          subscription.collectionName,
-          entry,
-          subscription.relations
-        )
+    const relationsToPopulate = [
+      ...(subscription.relations ? subscription.relations : []),
+      ...(subscription.mediaFields ? subscription.mediaFields : []),
+    ];
+
+    const entryWithRelations = relationsToPopulate.length
+      ? await getEntryWithRelation(subscription.collectionName, entry,relationsToPopulate)
       : entry;
     if (!entryWithRelations) {
       return;
