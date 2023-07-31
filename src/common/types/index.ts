@@ -13,5 +13,5 @@ export interface SubscriptionEntry {
   recipients: RecipientOptionType[];
   content: string;
   mediaFields: string[]
-  relations: string[]
+  relations?: string[]
 }
