@@ -1,0 +1,4 @@
+src
+!dist/*
+example
+node_modules

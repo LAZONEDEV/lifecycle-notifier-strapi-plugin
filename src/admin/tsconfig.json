@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "strict": true,
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react",
+    "sourceMap": true,
+    "incremental": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "rootDir": "../",
+    "outDir": "../../dist/admin",
+    "composite": true,
+    "noEmit": false
+  },
+
+  "include": [
+    "./",
+    "../common/**/*"
+  ],
+
+  "files": [
+    // force include translation files
+    "./translations/en.json",
+    "./translations/fr.json",
+  ]
+}
