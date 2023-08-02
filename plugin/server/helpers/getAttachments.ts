@@ -1,3 +1,4 @@
+import { Media } from "@strapi/strapi/lib/types/core/attributes";
 import { MailAttachment, StrapiMedia } from "../types";
 import { fetchLocalMedia } from "../utils/fetchLocalMedia";
 import { getFileService } from "./getStrapiService";
@@ -7,17 +8,39 @@ const fetchMedia = async (
   fileService: any
 ): Promise<Blob | Buffer> => {
   if (media.provider === "local") {
-    const buffer = fetchLocalMedia(media.url);
-    return buffer;
+    try {
+      const buffer = fetchLocalMedia(media.url);
+      return buffer;
+    } catch (error) {
+      console.error("Failed to load local media");
+      throw error;
+    }
   }
-  const signedMedia = await fileService.signFileUrls(media);
+
+  let signedMedia: Media;
+
+  try {
+    signedMedia = await fileService.signFileUrls(media);
+  } catch (error) {
+    console.error("Failed to sign file");
+    throw error;
+  }
 
   // @ts-ignore
   const request = await fetch(signedMedia.url);
-  const blob = await request.blob();
-  const arrayBuffer = await blob.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  return buffer;
+  if (!request.ok) {
+    throw new Error("Failed to fetch file");
+  }
+
+  try {
+    const blob = await request.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    return buffer;
+  } catch (error) {
+    console.error("Failed to get file buffer");
+    throw error;
+  }
 };
 
 export const getAttachments = async (medias: StrapiMedia[]) => {
