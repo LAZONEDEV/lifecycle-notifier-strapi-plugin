@@ -4,7 +4,8 @@
   "info": {
     "singularName": "planet",
     "pluralName": "planets",
-    "displayName": "Planet"
+    "displayName": "Planet",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,26 @@
     },
     "config": {
       "type": "json"
+    },
+    "email": {
+      "type": "email"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "by": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "planet"
     }
   }
 }
