@@ -60,3 +60,13 @@ export interface MailOptions {
   from?: string;
   attachments?: MailAttachment[];
 }
+
+export interface CollectionEntry {
+  id: string;
+}
+
+declare module "@strapi/database/lib/lifecycles" {
+  export interface Event {
+    result?: CollectionEntry & Record<string, unknown>;
+  }
+}

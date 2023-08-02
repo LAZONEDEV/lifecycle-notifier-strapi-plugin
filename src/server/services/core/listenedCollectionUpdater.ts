@@ -5,6 +5,8 @@ import { EventType } from "../../../common/enums";
 import type { SubscriberFn } from "@strapi/database/lib/lifecycles/subscribers";
 import { notify } from "../../helpers/notify";
 import { getSubscriptionsForCollection } from "../../helpers/getSubsForCollection";
+import { getEntryWithRelation } from "../../helpers/getEntryWithRelation";
+import { CollectionEntry } from "../../types";
 
 export const listenCollectionUpdate = async () => {
   strapi.db.lifecycles.subscribe(async (event) => {
@@ -57,16 +59,43 @@ const handleEventSubscription: SubscriberFn = async (event) => {
   }
 
   const collectionUid = event.model.uid;
-  const createdEntry = event.params.data;
+  const createdEntry = event.result || event.params.data;
 
   const relatedSubscriptions = await getSubscriptionsForCollection(
     collectionUid
   );
 
   for (const relatedSubscription of relatedSubscriptions) {
-    relatedSubscription.recipients.forEach((recipient) => {
-      notify(relatedSubscription, recipient, createdEntry)
+    notifyForSubscription(relatedSubscription, createdEntry as CollectionEntry);
+  }
+};
+
+const notifyForSubscription = async (
+  subscription: SubscriptionEntry,
+  entry: CollectionEntry
+) => {
+  try {
+    const relationsToPopulate = [
+      ...(subscription.relations ? subscription.relations : []),
+      ...(subscription.mediaFields ? subscription.mediaFields : []),
+    ];
+
+    const entryWithRelations = relationsToPopulate.length
+      ? await getEntryWithRelation(subscription.collectionName, entry,relationsToPopulate)
+      : entry;
+    if (!entryWithRelations) {
+      return;
+    }
+    subscription.recipients?.forEach?.((recipient) => {
+      notify(subscription, recipient, entryWithRelations).catch((error) => {
+        console.error(
+          `This error occurred will sending a notification for ${subscription.subject}`,
+          error
+        );
+      });
     });
+  } catch (error) {
+    console.error(error);
   }
 };
 

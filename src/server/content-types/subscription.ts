@@ -34,6 +34,9 @@ export default {
     },
     mediaFields: {
       type: "json"
-    }
+    },
+    relations: {
+      type: "json"
+    },
   },
 };
