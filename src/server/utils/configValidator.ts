@@ -39,6 +39,12 @@ export const subscriptionSchema = {
         type: "string",
       },
     },
+    relations: {
+      type: "array",
+      items: {
+        type: "string",
+      },
+    },
   },
   required: ["subject", "collectionName", "eventType", "recipients", "content"],
 };
@@ -46,14 +52,14 @@ export const subscriptionSchema = {
 export const subscriptionsSchema = {
   type: "array",
   items: subscriptionSchema,
-}
+};
 
 const envRecipientsSchema = {
   type: "array",
   items: {
     type: "string",
   },
-}
+};
 
 const configSchema = {
   type: "object",
@@ -61,8 +67,8 @@ const configSchema = {
     subscriptions: subscriptionsSchema,
     envRecipients: envRecipientsSchema,
     defaultFrom: {
-      type: "string"
-    }
+      type: "string",
+    },
   },
   required: [],
 };
@@ -71,4 +77,3 @@ export const validateConfig = (conf: any) => {
   const validator = new Validator();
   return validator.validate(conf, configSchema);
 };
-

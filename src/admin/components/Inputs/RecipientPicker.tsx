@@ -77,7 +77,7 @@ export const RecipientPicker = ({
 
   const modelRecipientOption = useMemo(() => {
     return modelEmailFields.map<RecipientOptionType>((item) => ({
-      type: RecipientType.FORM_MODEL,
+      type: RecipientType.FROM_MODEL,
       value: item,
     }));
   }, [modelEmailFields]);

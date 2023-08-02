@@ -27,6 +27,7 @@ import TextareaField from "../Inputs/TextareaField";
 import { SubscriptionEntry } from "../../../common/types";
 import { SubscriptionService } from "../../services/Subscription";
 import { subscriptionFormValidationSchema } from "../../utils/formValidation";
+import { RelationPicker } from "../Inputs/RelationPicker";
 
 export interface SubscriptionDialogProps {
   onClose: () => void;
@@ -86,7 +87,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
               <ModalBody>
                 <Form>
                   <Grid gap={4}>
-                    <GridItem padding={1} col={12}>
+                    <GridItem padding={1} col={6}>
                       <InputField name="subject" label="Subject" />
                     </GridItem>
 
@@ -124,6 +125,16 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         collections={collections}
                         label="Select recipient"
                         placeholder="Select recipients"
+                      />
+                    </GridItem>
+
+                    <GridItem padding={1} col={6}>
+                      <RelationPicker
+                        collectionFieldName="collectionName"
+                        name="relations"
+                        collections={collections}
+                        label="Relations to populate"
+                        placeholder="Select relations to populate"
                       />
                     </GridItem>
 
