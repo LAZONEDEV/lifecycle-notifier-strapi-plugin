@@ -19,7 +19,7 @@ Make sure you have Strapi installed in your project.
 Run the following command to install the plugin:
 
 ```bash
-npm install strapi-plugin-lifecycle-notifier --save
+npm install lifecycle-notifier --save
 ```
 
 Restart your Strapi server to apply the changes.
