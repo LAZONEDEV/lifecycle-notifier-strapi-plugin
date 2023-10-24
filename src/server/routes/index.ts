@@ -15,4 +15,12 @@ export default [
       policies: [],
     }, 
   },
+  {
+    method: 'GET',
+    path: '/interceptors',
+    handler: 'interceptors.getInterceptors',
+    config: {
+      policies: [],
+    }, 
+  },
 ];
