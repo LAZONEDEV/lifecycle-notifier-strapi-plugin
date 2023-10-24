@@ -58,6 +58,14 @@ export default ({ env }) => {
             subject: "Testing subs in config",
           },
         ],
+        interceptors: [
+          {
+            name: "test",
+            callback: () => {
+              console.log("test");
+            },
+          },
+        ],
       },
     },
   };
