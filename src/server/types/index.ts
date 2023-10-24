@@ -47,6 +47,7 @@ export enum ConfigKeys {
   ENV_RECIPIENT = "envRecipients",
   DEFAULT_MAIL_FROM = "defaultFrom",
   SUBSCRIPTIONS = "subscriptions",
+  INTERCEPTORS = "interceptors",
 }
 
 export interface MailAttachment {

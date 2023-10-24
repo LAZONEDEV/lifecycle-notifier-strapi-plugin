@@ -1,6 +1,11 @@
 import { EventType, RecipientType } from "../../common/enums";
 import { Validator } from "jsonschema";
 
+// add custom validator for function
+Validator.prototype.customFormats["function"] = (input) => {
+  return typeof input === "function";
+};
+
 export const subscriptionSchema = {
   type: "object",
   properties: {
@@ -61,6 +66,23 @@ const envRecipientsSchema = {
   },
 };
 
+const interceptorSchema = {
+  type: "object",
+  properties: {
+    name: {
+      type: "string",
+    },
+    callback: {
+      type: "function",
+    },
+  },
+};
+
+const interceptorsSchema = {
+  type: "array",
+  items: interceptorSchema,
+};
+
 const configSchema = {
   type: "object",
   properties: {
@@ -69,6 +91,7 @@ const configSchema = {
     defaultFrom: {
       type: "string",
     },
+    interceptors: interceptorsSchema,
   },
   required: [],
 };
