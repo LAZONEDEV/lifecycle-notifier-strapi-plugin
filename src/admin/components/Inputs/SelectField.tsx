@@ -8,6 +8,7 @@ type WithValue = { value: string };
 export type SelectFieldProps<P extends WithValue & unknown> = FormFieldProps & {
   options: P[];
   getName: (item: P) => string;
+  multi?: boolean;
 };
 
 function SelectField<P extends WithValue>({
@@ -17,6 +18,7 @@ function SelectField<P extends WithValue>({
   options,
   placeholder,
   getName,
+  multi,
 }: SelectFieldProps<P>) {
   const [{ value }, { error }, { setValue }] = useField<P>(name);
 
@@ -28,6 +30,7 @@ function SelectField<P extends WithValue>({
       error={error}
       placeholder={placeholder}
       hint={hint}
+      multi={multi}
     >
       {options.map((item) => {
         const name = getName(item);
