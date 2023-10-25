@@ -38,5 +38,8 @@ export default {
     relations: {
       type: "json"
     },
+    interceptors: {
+      type: "json"
+    },
   },
 };
