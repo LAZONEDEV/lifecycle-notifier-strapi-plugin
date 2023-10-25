@@ -10,6 +10,6 @@ export const subscriptionFormValidationSchema = yup.object({
     .required("You must select an event type"),
   recipients: yup.array().min(1, "Please select at least one recipient"),
   collectionName: yup.string().required("Please select the collection"),
-  relations: yup.array(),
+  relations: yup.array().nullable(),
   interceptors: yup.array().nullable(),
 });
