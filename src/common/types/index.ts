@@ -1,8 +1,8 @@
 import { EventType, RecipientType } from "../enums/index";
 
 export interface RecipientOptionType {
-  type: RecipientType,
-  value: string
+  type: RecipientType;
+  value: string;
 }
 
 export interface SubscriptionEntry {
@@ -12,6 +12,7 @@ export interface SubscriptionEntry {
   eventType: EventType;
   recipients: RecipientOptionType[];
   content: string;
-  mediaFields: string[]
-  relations?: string[]
+  mediaFields: string[];
+  relations?: string[];
+  interceptors?: string[];
 }

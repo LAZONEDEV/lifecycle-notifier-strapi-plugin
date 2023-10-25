@@ -2,6 +2,7 @@ import { RecipientOptionType, SubscriptionEntry } from "../../common/types";
 import { ConfigKeys, MailOptions, StrapiMedia } from "../types";
 import { getRecipientEmail } from "../utils/getRecipientEmail";
 import { isMediaEntry } from "../utils/isMediaEntry";
+import { applyInterceptors } from "./applyInterceptor";
 import { getAttachments } from "./getAttachments";
 import { getMediasFromIds } from "./getMediasFormIds";
 import { getPluginConfig } from "./getPluginConfig";
@@ -83,6 +84,10 @@ export const notify = async (
       mailOptions.attachments = attachments;
     }
 
-    sendEmail(mailOptions, templateData, entry).catch(console.error);
+    const finalData = subscription.interceptors?.length
+      ? await applyInterceptors(entry, subscription.interceptors)
+      : entry;
+
+    sendEmail(mailOptions, templateData, finalData).catch(console.error);
   }
 };

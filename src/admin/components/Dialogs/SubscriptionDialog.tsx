@@ -28,6 +28,7 @@ import { SubscriptionEntry } from "../../../common/types";
 import { SubscriptionService } from "../../services/Subscription";
 import { subscriptionFormValidationSchema } from "../../utils/formValidation";
 import { RelationPicker } from "../Inputs/RelationPicker";
+import { InterceptorPicker } from "../Inputs/InterceptorPicker";
 
 export interface SubscriptionDialogProps {
   onClose: () => void;
@@ -44,7 +45,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
     setLoading(true);
     const [request, abort] = loadCollectionsSchemas();
     request.then((result) => {
-      if(result){
+      if (result) {
         const apiCollections = filterApiCollection(result.data);
         setCollections(apiCollections);
       }
@@ -87,7 +88,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
               <ModalBody>
                 <Form>
                   <Grid gap={4}>
-                    <GridItem padding={1} col={6}>
+                    <GridItem padding={1} col={12}>
                       <InputField name="subject" label="Subject" />
                     </GridItem>
 
@@ -136,6 +137,10 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         label="Relations to populate"
                         placeholder="Select relations to populate"
                       />
+                    </GridItem>
+
+                    <GridItem padding={1} col={6}>
+                      <InterceptorPicker name="interceptors" />
                     </GridItem>
 
                     <GridItem padding={1} col={12}>

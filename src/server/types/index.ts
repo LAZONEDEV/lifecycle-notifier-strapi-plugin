@@ -66,6 +66,13 @@ export interface CollectionEntry {
   id: string;
 }
 
+export interface Interceptor {
+  name: string;
+  callback: (
+    entry: Record<string, any>
+  ) => Promise<Record<string, any>> | undefined;
+}
+
 declare module "@strapi/database/lib/lifecycles" {
   export interface Event {
     result?: CollectionEntry & Record<string, unknown>;

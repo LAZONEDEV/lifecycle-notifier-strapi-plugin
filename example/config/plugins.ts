@@ -1,5 +1,17 @@
 import { resolve } from "node:path";
 
+const discoveredDateFormatterInterceptor = {
+  name: "discoveryDateFormatter",
+  callback: (entry: Record<string, string>) => {
+    const date = entry["discoveryDate"];
+    if (date) {
+      return {
+        formattedDiscoveryDate: new Date(date).toLocaleString(),
+      };
+    }
+  },
+};
+
 export default ({ env }) => {
   return {
     // ...
@@ -51,21 +63,15 @@ export default ({ env }) => {
                 value: "custom@gmail.com",
               },
             ],
-            content: "Just send the name: <%= name %>",
+            content:
+              "The planet <%= name %> has been discovered on <%= formattedDiscoveryDate %>!",
             mediaFields: ["image"],
             createdAt: "2023-07-23T19:34:24.654Z",
             updatedAt: "2023-07-23T20:01:03.075Z",
             subject: "Testing subs in config",
           },
         ],
-        interceptors: [
-          {
-            name: "test",
-            callback: () => {
-              console.log("test");
-            },
-          },
-        ],
+        interceptors: [discoveredDateFormatterInterceptor],
       },
     },
   };
