@@ -1,7 +1,7 @@
 import { listenedCollection } from "../listenedCollection";
 import { describe, expect, it } from "@jest/globals";
 
-describe("listenedCollection", () => {
+describe("Unit Tests for listenedCollection Function", () => {
   it("should be initially empty", () => {
     expect(listenedCollection.size).toBe(0);
   });

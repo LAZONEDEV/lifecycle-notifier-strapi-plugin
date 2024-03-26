@@ -3,7 +3,7 @@ import { useCollectionFieldType } from "../collection";
 import { CollectionSchema } from "../../types";
 import { renderHook } from "@testing-library/react";
 
-describe("useCollectionFieldType Unit Test", () => {
+describe("Unit Test for useCollectionFieldType Hook", () => {
   it("should return empty array", () => {
     const collections: CollectionSchema[] = [];
     const collectionId = "1";

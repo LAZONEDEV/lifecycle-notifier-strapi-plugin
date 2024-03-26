@@ -6,7 +6,7 @@ jest.mock("../../utils/configValidator", () => ({
   validateConfig: jest.fn(),
 }));
 
-describe("validator function", () => {
+describe("Unit Test for Validator Function", () => {
   it("should throw an error if validateConfig returns errors", () => {
     // Arrange
     const mockError = { stack: "Error stack trace" };
