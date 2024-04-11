@@ -98,5 +98,11 @@ const configSchema = {
 
 export const validateConfig = (conf: any) => {
   const validator = new Validator();
-  return validator.validate(conf, configSchema);
+  const validationResult = validator.validate(conf, configSchema);
+
+  if (validationResult.errors.length) {
+    throw new Error(
+      `${validationResult.errors.map((error) => error.stack).join(",")}`
+    );
+  }
 };
