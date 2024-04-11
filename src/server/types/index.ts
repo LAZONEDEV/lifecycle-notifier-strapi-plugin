@@ -1,12 +1,12 @@
 import {
-  RecipientOptionType,
   SubscriptionEntry,
 } from "../../common/types/index";
 
 export interface PluginConfigs {
-  [ConfigKeys.ENV_RECIPIENT]?: RecipientOptionType;
+  [ConfigKeys.ENV_RECIPIENT]?: string[];
   [ConfigKeys.SUBSCRIPTIONS]?: SubscriptionEntry[];
   [ConfigKeys.DEFAULT_MAIL_FROM]?: string;
+  [ConfigKeys.INTERCEPTORS]?: Interceptor[];
 }
 
 export interface StrapiMedia {
