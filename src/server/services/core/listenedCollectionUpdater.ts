@@ -1,4 +1,3 @@
-import { subscriptionCollectionUid } from "../../../common/constants";
 import { listenedCollection } from "../../constants/listenedCollection";
 import { SubscriptionEntry } from "../../../common/types";
 import { EventType } from "../../../common/enums";
@@ -8,22 +7,15 @@ import { getSubscriptionsForCollection } from "../../helpers/getSubsForCollectio
 import { getEntryWithRelation } from "../../helpers/getEntryWithRelation";
 import { CollectionEntry } from "../../types";
 import { updateListenedCollectionOnChangeOnSubsCollection } from "./updateListenedCollectionSet";
+import { getStrapi } from "../../helpers/getStrapi";
 
 
 export const listenSubscriptionCollectionUpdate = async () => {
+  const strapi = getStrapi()
+
   strapi.db.lifecycles.subscribe(
     updateListenedCollectionOnChangeOnSubsCollection
   );
-};
-
-export const loadExistingSubscriptions = async () => {
-  const subscriptionRecords: SubscriptionEntry[] = await strapi.db
-    .query(subscriptionCollectionUid)
-    .findMany({});
-
-  subscriptionRecords.forEach((record) => {
-    listenedCollection.add(record.collectionName);
-  });
 };
 
 export const handleEventSubscription: SubscriberFn = async (event) => {
@@ -81,6 +73,8 @@ export const notifyForSubscription = async (
 };
 
 export const listenChangeOnCollection = async () => {
+  const strapi = getStrapi()
+  
   // @ts-ignore
   strapi.db.lifecycles.subscribe({
     async afterCreate(event) {
