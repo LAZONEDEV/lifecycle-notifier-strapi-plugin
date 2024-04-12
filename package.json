@@ -11,6 +11,7 @@
     "@strapi/design-system": "^1.6.3",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
+    "@types/jest": "^29.5.12",
     "formik": "^2.4.2",
     "jsonschema": "^1.4.1",
     "node-fetch": "^3.3.1",
@@ -60,7 +61,7 @@
   "scripts": {
     "develop": "tsc -b -w",
     "build": "tsc -b",
-    "test": "jest --env=jsdom"
+    "test": "jest --env=jsdom --collectCoverage"
   },
   "license": "MIT"
 }
