@@ -1,13 +1,11 @@
 import { listenedCollection } from "../../constants/listenedCollection";
-import { SubscriptionEntry } from "../../../common/types";
 import { EventType } from "../../../common/enums";
 import type { SubscriberFn } from "@strapi/database/lib/lifecycles/subscribers";
-import { notify } from "../../helpers/notify";
 import { getSubscriptionsForCollection } from "../../helpers/getSubsForCollection";
-import { getEntryWithRelation } from "../../helpers/getEntryWithRelation";
 import { CollectionEntry } from "../../types";
 import { updateListenedCollectionOnChangeOnSubsCollection } from "./updateListenedCollectionSet";
 import { getStrapi } from "../../helpers/getStrapi";
+import { notifyForSubscription } from "./notifyForSubscription";
 
 
 export const listenSubscriptionCollectionUpdate = async () => {
@@ -39,38 +37,7 @@ export const handleEventSubscription: SubscriberFn = async (event) => {
   }
 };
 
-export const notifyForSubscription = async (
-  subscription: SubscriptionEntry,
-  entry: CollectionEntry
-) => {
-  try {
-    const relationsToPopulate = [
-      ...(subscription.relations ? subscription.relations : []),
-      ...(subscription.mediaFields ? subscription.mediaFields : []),
-    ];
 
-    const entryWithRelations = relationsToPopulate.length
-      ? await getEntryWithRelation(
-          subscription.collectionName,
-          entry,
-          relationsToPopulate
-        )
-      : entry;
-    if (!entryWithRelations) {
-      return;
-    }
-    subscription.recipients?.forEach?.((recipient) => {
-      notify(subscription, recipient, entryWithRelations).catch((error) => {
-        console.error(
-          `This error occurred will sending a notification for ${subscription.subject}`,
-          error
-        );
-      });
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 export const listenChangeOnCollection = async () => {
   const strapi = getStrapi()
