@@ -10,7 +10,7 @@ describe("getCollectionNameFormUid", () => {
     expect(expected).toBe(expectedCollectionName);
   });
 
-  it("should return an empty string if the UID is malformed", () => {
+  it("should return undefined string if the UID is malformed", () => {
     const malformedUid = "malformedUid";
 
     const expected = getCollectionNameFormUid(malformedUid);
