@@ -8,7 +8,7 @@ jest.mock("../../helpers/getPluginConfig", () => ({
 }));
 
 describe("Unit test for config service", () => {
-  it("should return the config", () => {
+  it("should return the recipients list in the config", () => {
     const envRecipients = ["TEST"];
     const configs: PluginConfigs = {
       [ConfigKeys.ENV_RECIPIENT]: envRecipients,
