@@ -1,34 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import {
   ModalLayout,
   ModalHeader,
   Typography,
-  ModalFooter,
-  Button,
   ModalBody,
   Grid,
   GridItem,
   Flex,
   Loader,
 } from "@strapi/design-system";
-import InputField from "../Inputs/InputField";
-import SelectField from "../Inputs/SelectField";
-import { EventType, eventTypes } from "../../../common/config/eventType";
-import { CollectionPicker } from "../Inputs/CollectionPicker";
-import {
-  filterApiCollection,
-  loadCollectionsSchemas,
-} from "../../utils/loadCollections";
-import { CollectionSchema } from "../../types";
-import { AttachableFilePicker } from "../Inputs/AttachableFilePicker";
-import { RecipientPicker } from "../Inputs/RecipientPicker";
-import TextareaField from "../Inputs/TextareaField";
-import { SubscriptionEntry } from "../../../common/types";
-import { SubscriptionService } from "../../services/Subscription";
-import { subscriptionFormValidationSchema } from "../../utils/formValidation";
-import { RelationPicker } from "../Inputs/RelationPicker";
-import { InterceptorPicker } from "../Inputs/InterceptorPicker";
+import InputField from "../../Inputs/InputField";
+import SelectField from "../../Inputs/SelectField";
+import { EventType, eventTypes } from "../../../../common/config/eventType";
+import { CollectionPicker } from "../../Inputs/CollectionPicker";
+import { AttachableFilePicker } from "../../Inputs/AttachableFilePicker";
+import { RecipientPicker } from "../../Inputs/RecipientPicker";
+import TextareaField from "../../Inputs/TextareaField";
+import { SubscriptionEntry } from "../../../../common/types";
+import { SubscriptionService } from "../../../services/Subscription";
+import { subscriptionFormValidationSchema } from "../../../utils/formValidation";
+import { RelationPicker } from "../../Inputs/RelationPicker";
+import { InterceptorPicker } from "../../Inputs/InterceptorPicker";
+import { useCollections } from "../../../hooks/getCollections";
+import Footer from "./../SubscriptionDialog/Footer";
 
 export interface SubscriptionDialogProps {
   onClose: () => void;
@@ -38,24 +33,7 @@ export interface SubscriptionDialogProps {
 const initialValues: Partial<SubscriptionEntry> = {};
 
 const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
-  const [collections, setCollections] = useState<CollectionSchema[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    const [request, abort] = loadCollectionsSchemas();
-    request.then((result) => {
-      if (result) {
-        const apiCollections = filterApiCollection(result.data);
-        setCollections(apiCollections);
-      }
-      setLoading(false);
-    });
-
-    return () => {
-      abort();
-    };
-  }, []);
+  const { collections, loading } = useCollections();
 
   const onSubmit = async (values: SubscriptionEntry) => {
     if (editing) {
@@ -155,21 +133,11 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                 </Form>
               </ModalBody>
 
-              <ModalFooter
-                startActions={
-                  <Button type="reset" onClick={onClose} variant="tertiary">
-                    Cancel
-                  </Button>
-                }
-                endActions={
-                  <Button
-                    loading={isSubmitting}
-                    type="submit"
-                    onClick={submitForm}
-                  >
-                    {editing ? "Update subscription" : "Add subscription"}
-                  </Button>
-                }
+              <Footer
+                isSubmitting={isSubmitting}
+                onClose={onClose}
+                submitForm={submitForm}
+                editing={!!editing}
               />
             </>
           )}

@@ -1,6 +1,6 @@
 import { Option, Select } from "@strapi/design-system";
 import { CollectionSchema, FormFieldProps } from "../../types";
-import React, { useEffect } from "react";
+import React from "react";
 import { useField } from "formik";
 import { useCollectionFieldType } from "../../hooks/collection";
 
