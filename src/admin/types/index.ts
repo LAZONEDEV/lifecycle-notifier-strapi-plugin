@@ -31,3 +31,7 @@ export interface AttrConfig {
 export interface CollectionSchemaResult {
   data: CollectionSchema[]
 }
+
+export interface Interceptor {
+  (options: RequestInit): RequestInit;
+}
