@@ -31,6 +31,7 @@ describe("Unit Test for loadSubsFromPluginConfig Funtion", () => {
     const mockedGetPluginConfig = getPluginConfig as jest.MockedFunction<
       typeof getPluginConfig
     >;
+    // @ts-ignore
     mockedGetPluginConfig.mockReturnValue(mockSubs);
 
     const mockedGetFromStore = getFromStore as jest.MockedFunction<
