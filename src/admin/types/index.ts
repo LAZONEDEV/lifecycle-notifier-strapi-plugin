@@ -3,6 +3,7 @@ export interface FormFieldProps {
   hint?: string;
   placeholder?: string;
   name: string;
+  required?: boolean;
 }
 
 export interface CollectionAttribute extends Record<string, AttrConfig> {}
