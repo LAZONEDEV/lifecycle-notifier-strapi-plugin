@@ -3,18 +3,17 @@ import { ConfigServiceApi } from "../../services/config";
 import Config from "../configs";
 import { describe, it, expect, jest, beforeEach } from "@jest/globals";
 
-describe("Configurations Tests", () => {
+describe("Configurations Controller Tests", () => {
   let strapi;
   let ctx;
+  const recipe = { recipients: ["test@example.com"] };
 
   beforeEach(() => {
     // Mock the strapi object
     strapi = {
       plugin: jest.fn().mockReturnValue({
         service: jest.fn().mockReturnValue({
-          getRecipientConfig: jest
-            .fn()
-            .mockReturnValue({ recipients: ["test@example.com"] }),
+          getRecipientConfig: jest.fn().mockReturnValue(recipe),
         }),
       }),
     };
@@ -26,14 +25,14 @@ describe("Configurations Tests", () => {
   });
 
   it("should set the recipient config in the context body", () => {
-    const instance = Config({ strapi });
-    instance.envRecipients(ctx);
-    expect(ctx.body).toEqual({ recipients: ["test@example.com"] });
+    const configController = Config({ strapi });
+    configController.envRecipients(ctx);
+    expect(ctx.body).toEqual(recipe);
   });
 
   it("should return the plugin ID", () => {
-    const instance = Config({ strapi });
-    const result = instance.index();
+    const configController = Config({ strapi });
+    const result = configController.index();
     expect(result).toBe(pluginId);
   });
 });
