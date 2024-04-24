@@ -23,7 +23,7 @@ jest.mock("../../utils/loadCollections", () => ({
 
 const waitingTime = 2000;
 // wait for 2 seconds before resolving
-// to be able to checked if the loading state
+// to be able to checked if the loading state has changed
 const mockResponsePromise = resolveWithDelay(waitingTime, mockedCollections);
 
 describe("test suite for useCollections hook", () => {
