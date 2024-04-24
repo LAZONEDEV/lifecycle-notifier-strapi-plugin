@@ -26,6 +26,7 @@ export const RecipientPicker = ({
   label,
   hint,
   placeholder,
+  ...rest
 }: RecipientPickerProps) => {
   const [customRecipients, setCustomRecipients] = useState<
     RecipientOptionType[]
@@ -76,6 +77,7 @@ export const RecipientPicker = ({
 
   return (
     <Select
+      aria-label={label}
       label={label}
       multi
       placeholder={placeholder}
@@ -87,6 +89,7 @@ export const RecipientPicker = ({
       onChange={updateValue}
       error={error}
       withTags
+      {...rest}
     >
       {[...envRecipients, ...modelRecipientOption, ...customRecipients].map(
         (field) => {
