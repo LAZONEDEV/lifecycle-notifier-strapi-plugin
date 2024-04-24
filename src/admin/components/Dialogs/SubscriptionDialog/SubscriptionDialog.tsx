@@ -30,7 +30,15 @@ export interface SubscriptionDialogProps {
   editing?: SubscriptionEntry;
 }
 
-const initialValues: Partial<SubscriptionEntry> = {};
+const initialValues: Partial<SubscriptionEntry> = {
+  subject: "",
+  collectionName: "",
+  mediaFields: [],
+  recipients: [],
+  relations: [],
+  interceptors: [],
+  content: "",
+};
 
 const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
   const { collections, loading } = useCollections();
@@ -52,7 +60,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
         </Typography>
       </ModalHeader>
       {loading ? (
-        <Flex padding={10} justifyContent="center">
+        <Flex data-testid="loader" padding={10} justifyContent="center">
           <Loader />
         </Flex>
       ) : (
@@ -67,11 +75,12 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                 <Form>
                   <Grid gap={4}>
                     <GridItem padding={1} col={12}>
-                      <InputField name="subject" label="Subject" />
+                      <InputField required name="subject" label="Subject" />
                     </GridItem>
 
                     <GridItem padding={1} col={6}>
                       <SelectField<EventType>
+                        required
                         name="eventType"
                         label="Event to listen"
                         placeholder="Select an event type"
@@ -82,6 +91,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={6}>
                       <CollectionPicker
+                        required
                         name="collectionName"
                         collections={collections}
                       />
@@ -99,6 +109,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={6}>
                       <RecipientPicker
+                        required
                         collectionFormName="collectionName"
                         name="recipients"
                         collections={collections}
@@ -123,6 +134,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={12}>
                       <TextareaField
+                        required
                         label="Template"
                         name="content"
                         placeholder="Template code for the mail"
