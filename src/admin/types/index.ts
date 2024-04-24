@@ -35,3 +35,8 @@ export interface CollectionSchemaResult {
 export interface Interceptor {
   (options: RequestInit): RequestInit;
 }
+
+export type InterceptorOptionType = {
+  name: string;
+  value: string;
+};
