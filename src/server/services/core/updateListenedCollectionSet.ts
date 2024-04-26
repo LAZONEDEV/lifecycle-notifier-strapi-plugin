@@ -41,3 +41,4 @@ export const updateListenedCollectionOnChangeOnSubsCollection: SubscriberFn =
       listenedCollection.add(collectionName);
     }
   };
+  
