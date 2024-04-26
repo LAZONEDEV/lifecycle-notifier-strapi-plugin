@@ -34,7 +34,7 @@ describe("Unit test for listenedCollectionUpdater", () => {
     },
   };
 
-  it("should register new listened collection", async () => {
+  it("should register a new listened collection", async () => {
     const event = {
       ...commonEventInfo,
       action: "beforeCreate",
@@ -47,7 +47,7 @@ describe("Unit test for listenedCollectionUpdater", () => {
     );
   });
 
-  it("should remove a collection from listened collection", async () => {
+  it("should remove a collection item from listened collection", async () => {
     const event = {
       ...commonEventInfo,
       action: "afterDelete",
@@ -71,7 +71,7 @@ describe("Unit test for listenedCollectionUpdater", () => {
     jest.clearAllMocks();
   });
 
-  it("should not update listened collection because of event not related to subscription", async () => {
+  it("should not update listened collection because the event is not related to subscription", async () => {
     const event = {
       ...commonEventInfo,
       action: "afterDelete",
@@ -103,7 +103,7 @@ describe("Unit test for listenedCollectionUpdater", () => {
     expect(listenedCollection.add).not.toHaveBeenCalled();
   });
 
-  it("should handle case where collectionName not defined", async () => {
+  it("should handle the case where collectionName is not defined", async () => {
     const event = {
       ...commonEventInfo,
       action: "beforeCreate",
