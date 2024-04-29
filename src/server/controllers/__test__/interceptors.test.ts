@@ -1,22 +1,19 @@
 import { describe, it, expect, jest, beforeEach } from "@jest/globals";
-import pluginId from "../../../common/utils/pluginId";
-import InterceptorsServiceApi from "../../services/interceptor";
 import Interceptor from "../interceptors";
 
 describe("Interceptor Unit Test", () => {
   let strapi;
   let ctx;
+  const interceptors = ["interceptor1", "interceptor2"];
 
   beforeEach(() => {
     // Mock the strapi object
     strapi = {
       plugin: jest.fn().mockReturnValue({
         service: jest.fn().mockReturnValue({
-          getInterceptors: jest
-            .fn()
-            .mockReturnValue({
-              interceptors: ["interceptor1", "interceptor2"],
-            }),
+          getInterceptors: jest.fn().mockReturnValue({
+            interceptors: interceptors,
+          }),
         }),
       }),
     };
@@ -27,11 +24,11 @@ describe("Interceptor Unit Test", () => {
     };
   });
 
-  it("should set the interceptors in the context body", () => {
-    const instance = Interceptor({ strapi });
-    instance.getInterceptors(ctx);
+  it("should define interceptors in the request response body", () => {
+    const interceptorController = Interceptor({ strapi });
+    interceptorController.getInterceptors(ctx);
     expect(ctx.body).toEqual({
-      interceptors: ["interceptor1", "interceptor2"],
+      interceptors: interceptors,
     });
   });
 });
