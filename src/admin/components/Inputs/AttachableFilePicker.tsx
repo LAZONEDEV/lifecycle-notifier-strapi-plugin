@@ -16,6 +16,7 @@ export const AttachableFilePicker = ({
   placeholder,
   collectionFormName,
   collections,
+  ...rest
 }: AttachableFilePickerProps) => {
   const [{ value: selectedCollectionName }] = useField(collectionFormName);
   const [{ value }, { error }, { setValue }] = useField<string[]>(name);
@@ -29,6 +30,7 @@ export const AttachableFilePicker = ({
 
   return (
     <Select
+      aria-label={label}
       label={label}
       multi
       placeholder={placeholder}
@@ -45,6 +47,7 @@ export const AttachableFilePicker = ({
       error={error}
       withTags
       disabled={!hasMediaField}
+      {...rest}
     >
       {mediaFields.map((field) => (
         <Option key={field} value={field}>

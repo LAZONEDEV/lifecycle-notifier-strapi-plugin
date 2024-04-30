@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Plus } from "@strapi/icons";
+import { Plus , Refresh} from "@strapi/icons";
 import { Box, Button, HeaderLayout } from "@strapi/design-system";
-
 import SubscriptionList from "../../components/SubscriptionList/SubscriptionList";
 import { SubscriptionEntry } from "../../../common/types";
-import { Refresh } from "@strapi/icons";
 import { useSubscriptions } from "../../hooks/subscription";
 import SubscriptionDialog from "../../components/Dialogs/SubscriptionDialog/SubscriptionDialog";
 
@@ -51,5 +49,5 @@ const HomePage = () => {
     </Box>
   );
 };
-
+ 
 export default HomePage;
