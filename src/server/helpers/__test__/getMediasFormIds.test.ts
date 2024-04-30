@@ -1,6 +1,7 @@
-import { describe, expect, it, jest, beforeEach } from "@jest/globals";
+import { describe, expect, it, jest, afterEach } from "@jest/globals";
 import { getMediasFromIds } from "../getMediasFormIds";
 import { getMediaFileEntityManager } from "../getEntityManager";
+import { StrapiMedia } from "../../types";
 
 // Mocking the external dependency
 jest.mock("../getEntityManager", () => ({
@@ -8,7 +9,7 @@ jest.mock("../getEntityManager", () => ({
 }));
 
 describe("Unit Test for getMediasFromIds Function", () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -21,7 +22,9 @@ describe("Unit Test for getMediasFromIds Function", () => {
     ];
 
     (getMediaFileEntityManager as jest.Mock).mockReturnValue({
-      findMany: jest.fn().mockResolvedValue(mockMedias as never),
+      findMany: jest
+        .fn<() => Promise<Partial<StrapiMedia>[]>>()
+        .mockResolvedValue(mockMedias),
     });
 
     const result = await getMediasFromIds(mockIds);
@@ -35,7 +38,7 @@ describe("Unit Test for getMediasFromIds Function", () => {
     const mockError = new Error("Test error");
 
     (getMediaFileEntityManager as jest.Mock).mockReturnValue({
-      findMany: jest.fn().mockRejectedValue(mockError as never),
+      findMany: jest.fn<() => Promise<Error>>().mockRejectedValue(mockError),
     });
 
     try {
