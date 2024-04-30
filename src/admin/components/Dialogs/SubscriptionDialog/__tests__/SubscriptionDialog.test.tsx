@@ -54,7 +54,7 @@ const fieldLabels: Record<string, string> = {
   subject: "Subject",
   event: "Event to listen",
   collection: "Related collection",
-  media: "Selection file to join",
+  media: "Selected files to join",
   recipients: "Select recipient",
   relations: "Relations to populate",
   interceptors: "Interceptor to apply",
