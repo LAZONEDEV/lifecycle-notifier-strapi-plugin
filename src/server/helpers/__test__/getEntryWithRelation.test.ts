@@ -1,25 +1,40 @@
-import { describe, it, expect, jest, beforeEach } from "@jest/globals";
+import {
+  describe,
+  it,
+  expect,
+  jest,
+  beforeEach,
+  afterEach,
+} from "@jest/globals";
+
 import { getEntryWithRelation } from "../getEntryWithRelation";
 import { getCollectionEntityManager } from "../getEntityManager";
+import { CollectionEntry } from "../../types";
 
 jest.mock("../getEntityManager", () => ({
   getCollectionEntityManager: jest.fn(),
 }));
 
-describe("Unit Tests of getEnryWithRelation Function", () => {
-  beforeEach(() => {
+describe("getEntryWithRelation", () => {
+  const mockCollectionUid = "testCollectionUid";
+  const mockEntry: CollectionEntry = { id: "1" };
+  const mockRelationsToPopulate = ["relation1", "relation2"];
+  const mockResult = { id: "1", relation1: {}, relation2: {} };
+  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("should return entry with relations successfully", async () => {
-    const mockCollectionUid = "testCollectionUid";
-    const mockEntry = { id: "1" };
-    const mockRelationsToPopulate = ["relation1", "relation2"];
-    const mockEntryWithRelation = { id: "1", relations: {} };
-
-    (getCollectionEntityManager as jest.Mock).mockReturnValue({
-      findOne: jest.fn().mockResolvedValue(mockEntryWithRelation as never),
-    });
+    const mockEntityManager = {
+      findOne: jest
+        .fn<() => Promise<CollectionEntry>>()
+        .mockResolvedValue(mockResult),
+    };
+    (getCollectionEntityManager as jest.Mock).mockReturnValue(
+      mockEntityManager
+    );
 
     const result = await getEntryWithRelation(
       mockCollectionUid,
@@ -27,20 +42,16 @@ describe("Unit Tests of getEnryWithRelation Function", () => {
       mockRelationsToPopulate
     );
 
-    expect(result).toEqual(mockEntryWithRelation);
+    expect(result).toEqual(mockResult);
     expect(getCollectionEntityManager).toHaveBeenCalledWith(mockCollectionUid);
+    expect(mockEntityManager.findOne).toHaveBeenCalledWith({
+      where: { id: mockEntry.id },
+      populate: mockRelationsToPopulate,
+    });
   });
 
   it("should log error and return undefined if entity manager is not found", async () => {
-    const mockCollectionUid = "testCollectionUid";
-    const mockEntry = { id: "1" };
-    const mockRelationsToPopulate = ["relation1", "relation2"];
-
     (getCollectionEntityManager as jest.Mock).mockReturnValue(undefined);
-
-    const consoleSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
 
     const result = await getEntryWithRelation(
       mockCollectionUid,
@@ -52,22 +63,15 @@ describe("Unit Tests of getEnryWithRelation Function", () => {
     expect(consoleSpy).toHaveBeenCalledWith(
       `Failed to get entity manager for collection ${mockCollectionUid}`
     );
-
-    consoleSpy.mockRestore();
   });
 
-  it("should log error and return undefined if entry with relations is not found", async () => {
-    const mockCollectionUid = "testCollectionUid";
-    const mockEntry = { id: "1" };
-    const mockRelationsToPopulate = ["relation1", "relation2"];
-
-    (getCollectionEntityManager as jest.Mock).mockReturnValue({
-      findOne: jest.fn().mockResolvedValue(undefined as never),
-    });
-
-    const consoleSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
+  it("should log error and return undefined if the entry is not found", async () => {
+    const mockEntityManager = {
+      findOne: jest.fn<() => Promise<undefined>>().mockResolvedValue(undefined),
+    };
+    (getCollectionEntityManager as jest.Mock).mockReturnValue(
+      mockEntityManager
+    );
 
     const result = await getEntryWithRelation(
       mockCollectionUid,
@@ -79,22 +83,16 @@ describe("Unit Tests of getEnryWithRelation Function", () => {
     expect(consoleSpy).toHaveBeenCalledWith(
       `Failed to find entry with id ${mockEntry.id} in collection ${mockCollectionUid}`
     );
-
-    consoleSpy.mockRestore();
   });
 
   it("should log error if an exception occurs", async () => {
-    const mockCollectionUid = "testCollectionUid";
-    const mockEntry = { id: "1" };
-    const mockRelationsToPopulate = ["relation1", "relation2"];
-
-    (getCollectionEntityManager as jest.Mock).mockReturnValue({
-      findOne: jest.fn().mockRejectedValue(new Error("Test error") as never),
-    });
-
-    const consoleSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
+    const mockError = new Error("Test error");
+    const mockEntityManager = {
+      findOne: jest.fn<() => Promise<Error>>().mockRejectedValue(mockError),
+    };
+    (getCollectionEntityManager as jest.Mock).mockReturnValue(
+      mockEntityManager
+    );
 
     await getEntryWithRelation(
       mockCollectionUid,
@@ -106,8 +104,6 @@ describe("Unit Tests of getEnryWithRelation Function", () => {
       "The error occurred while retrieving entry with its relation"
     );
     expect(consoleSpy).toHaveBeenCalledWith(new Error("Test error"));
-
-    consoleSpy.mockRestore();
   });
 });
 
