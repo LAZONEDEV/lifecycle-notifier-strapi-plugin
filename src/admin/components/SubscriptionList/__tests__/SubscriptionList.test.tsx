@@ -69,7 +69,7 @@ describe("suite test for SubscriptionList component", () => {
     expect(onEditMock).toHaveBeenCalledWith(subList[0]);
   });
 
-  it("should open modal and call SubscriptionService.delete when trying to delete a subscription and confirmed", async () => {
+  it("should open modal and call SubscriptionService.delete when trying to confirm a subscription to be deleted", async () => {
     const { getByTestId } = render(
       <SubscriptionList
         onEdit={() => {}}
