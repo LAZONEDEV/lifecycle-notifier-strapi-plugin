@@ -1,9 +1,9 @@
 import instance from "../utils/fetchInstance";
-import { subscriptionCollectionUid } from "../../common/constants/index";
 import { SubscriptionEntry } from "../../common/types/index";
+import { apiRoutes } from "../constants/apiRoutes";
 
 export class SubscriptionService {
-  static baseUrl = `/content-manager/collection-types/${subscriptionCollectionUid}`;
+  static baseUrl = apiRoutes.pluginSubscriptions;
   static async get() {
     const subs = await instance.get(SubscriptionService.baseUrl);
     return subs.results as SubscriptionEntry[];
