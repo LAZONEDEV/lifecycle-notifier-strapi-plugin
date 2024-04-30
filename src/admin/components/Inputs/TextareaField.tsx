@@ -12,6 +12,7 @@ const TextareaField = ({ name, label, hint, ...props }: InputFieldProps) => {
   return (
     <Textarea
       error={error}
+      aria-label={label}
       label={label}
       hint={hint}
       {...props}
