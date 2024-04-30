@@ -70,6 +70,7 @@ export const SubscriptionList = ({
               <Td>
                 <Flex>
                   <IconButton
+                    data-testid="edit-button"
                     onClick={() => onEdit(entry)}
                     label="Edit"
                     noBorder
@@ -77,6 +78,7 @@ export const SubscriptionList = ({
                   />
                   <Box paddingLeft={1}>
                     <IconButton
+                      data-testid="delete-button"
                       onClick={() => setToDelete(entry.id)}
                       label="Delete"
                       noBorder
