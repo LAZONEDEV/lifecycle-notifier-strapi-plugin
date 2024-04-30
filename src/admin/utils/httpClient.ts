@@ -1,6 +1,5 @@
-interface Interceptor {
-  (options: RequestInit): RequestInit;
-}
+import { Interceptor } from "../types";
+
 
 class HTTPClient {
   private baseURL: string;
@@ -24,7 +23,7 @@ class HTTPClient {
         options = interceptor(options);
       }
 
-      const response = await fetch(`${this.baseURL}${url}`, options);
+      const response = await fetch(`${this.baseURL ?? ""}${url}`, options);
       if(response.status === 204){
         return;
       }

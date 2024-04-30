@@ -1,29 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Plus } from "@strapi/icons";
+import React, { useState } from "react";
+import { Plus , Refresh} from "@strapi/icons";
 import { Box, Button, HeaderLayout } from "@strapi/design-system";
-
-import SubscriptionDialog from "../../components/Dialogs/SubscriptionDialog";
 import SubscriptionList from "../../components/SubscriptionList/SubscriptionList";
 import { SubscriptionEntry } from "../../../common/types";
-import { SubscriptionService } from "../../services/Subscription";
-import { Refresh } from "@strapi/icons";
+import { useSubscriptions } from "../../hooks/subscription";
+import SubscriptionDialog from "../../components/Dialogs/SubscriptionDialog/SubscriptionDialog";
 
 const HomePage = () => {
   const [onEditing, setOnEditing] = useState<undefined | SubscriptionEntry>();
   const [openModal, setOpenModal] = useState(false);
-  const [subList, setSubList] = useState<SubscriptionEntry[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const loadSubs = () => {
-    setLoading(true);
-    SubscriptionService.get()
-      .then((res) => setSubList(res))
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    loadSubs();
-  }, []);
+  const { subscriptions, loading, reload } = useSubscriptions();
 
   const closeModal = () => {
     setOpenModal(false);
@@ -44,7 +30,7 @@ const HomePage = () => {
             loading={loading}
             variant="tertiary"
             startIcon={<Refresh />}
-            onClick={() => loadSubs()}
+            onClick={reload}
           >
             Reload
           </Button>
@@ -52,8 +38,8 @@ const HomePage = () => {
       />
 
       <SubscriptionList
-        subList={subList}
-        loadSubs={loadSubs}
+        subList={subscriptions}
+        loadSubs={reload}
         onEdit={setOnEditing}
       />
 
@@ -63,5 +49,5 @@ const HomePage = () => {
     </Box>
   );
 };
-
+ 
 export default HomePage;

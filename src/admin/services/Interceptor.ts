@@ -1,10 +1,10 @@
+import { apiRoutes } from "../constants/apiRoutes";
 import fetchInstance from "../utils/fetchInstance";
 
 export class InterceptorService {
-  static baseUrl = "/lifecycle-notifier/";
   static async getInterceptors() {
     const result = await fetchInstance.get(
-      `${InterceptorService.baseUrl}interceptors`
+      apiRoutes.pluginInterceptors
     );
 
     return result as string[];

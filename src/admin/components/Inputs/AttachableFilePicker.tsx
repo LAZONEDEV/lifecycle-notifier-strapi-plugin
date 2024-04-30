@@ -6,7 +6,7 @@ import { useCollectionFieldType } from "../../hooks/collection";
 
 export interface AttachableFilePickerProps extends FormFieldProps {
   collectionFormName: string;
-  collections: CollectionSchema[]
+  collections: CollectionSchema[];
 }
 
 export const AttachableFilePicker = ({
@@ -15,31 +15,45 @@ export const AttachableFilePicker = ({
   label,
   placeholder,
   collectionFormName,
-  collections
+  collections,
+  ...rest
 }: AttachableFilePickerProps) => {
-  const [{value: selectedCollectionName}] = useField(collectionFormName)
+  const [{ value: selectedCollectionName }] = useField(collectionFormName);
   const [{ value }, { error }, { setValue }] = useField<string[]>(name);
 
-  const mediaFields = useCollectionFieldType({collectionId:selectedCollectionName,collections,fieldType:"media"})
-
-  const hasMediaField = !!mediaFields.length
+  const mediaFields = useCollectionFieldType({
+    collectionId: selectedCollectionName,
+    collections,
+    fieldType: "media",
+  });
+  const hasMediaField = !!mediaFields.length;
 
   return (
     <Select
+      aria-label={label}
       label={label}
       multi
       placeholder={placeholder}
-      hint={hasMediaField ? hint : "No media field to select on the selected collection"}
+      hint={
+        hasMediaField
+          ? hint
+          : "No media field to select on the selected collection"
+      }
       onClear={() => {
         setValue([]);
       }}
-      value={value||[]}
+      value={value || []}
       onChange={setValue}
       error={error}
       withTags
       disabled={!hasMediaField}
+      {...rest}
     >
-      {mediaFields.map(field => <Option key={field} value={field}>{field}</Option>)}
+      {mediaFields.map((field) => (
+        <Option key={field} value={field}>
+          {field}
+        </Option>
+      ))}
     </Select>
   );
 };

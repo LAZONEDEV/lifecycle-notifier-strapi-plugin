@@ -3,6 +3,7 @@ export interface FormFieldProps {
   hint?: string;
   placeholder?: string;
   name: string;
+  required?: boolean;
 }
 
 export interface CollectionAttribute extends Record<string, AttrConfig> {}
@@ -31,3 +32,12 @@ export interface AttrConfig {
 export interface CollectionSchemaResult {
   data: CollectionSchema[]
 }
+
+export interface Interceptor {
+  (options: RequestInit): RequestInit;
+}
+
+export type InterceptorOptionType = {
+  name: string;
+  value: string;
+};
