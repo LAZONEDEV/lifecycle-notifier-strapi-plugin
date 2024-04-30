@@ -8,7 +8,7 @@ jest.mock("../../helpers/getStrapi", () => ({
 }));
 
 describe("fetchLocalMedia", () => {
-  it("should read file synchronously from the correct path", () => {
+  it("should read file synchronously using the correct path", () => {
     const patch = "/example.jpg";
     const publicDir = "/public";
 
