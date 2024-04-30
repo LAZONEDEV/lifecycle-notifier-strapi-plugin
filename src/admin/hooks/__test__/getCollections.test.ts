@@ -82,7 +82,7 @@ describe("test suite for useCollections hook", () => {
 
     const { unmount } = renderHook(() => useCollections());
     // unmount the component to cancel the request
-    unmount!();
+    unmount?.()!;
 
     expect(cancelRequest).toHaveBeenCalledTimes(1);
   });
