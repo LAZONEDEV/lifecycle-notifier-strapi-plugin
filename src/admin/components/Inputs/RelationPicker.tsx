@@ -16,6 +16,7 @@ export const RelationPicker = ({
   placeholder,
   collectionFieldName,
   collections,
+  ...rest
 }: RelationPickerProps) => {
   const [{ value: selectedCollectionName }] = useField(collectionFieldName);
   const [{ value }, { error }, { setValue }] = useField<string[]>(name);
@@ -30,6 +31,7 @@ export const RelationPicker = ({
 
   return (
     <Select
+      aria-label={label}
       label={label}
       multi
       placeholder={placeholder}
@@ -42,6 +44,7 @@ export const RelationPicker = ({
       error={error}
       withTags
       disabled={!hasRelationField}
+      {...rest}
     >
       {relationFields.map((field) => (
         <Option key={field} value={field}>

@@ -7,7 +7,6 @@ export const useCollections = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     const [request, abort] = loadCollectionsSchemas();
     request.then((result) => {
       if (result) {

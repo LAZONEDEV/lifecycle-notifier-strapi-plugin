@@ -10,7 +10,14 @@ const InputField = ({ name, label, hint, ...props }: InputFieldProps) => {
   const [field, { error }] = useField(name);
 
   return (
-    <TextInput error={error} label={label} hint={hint} {...props} {...field} />
+    <TextInput
+      aria-label={label}
+      error={error}
+      label={label}
+      hint={hint}
+      {...props}
+      {...field}
+    />
   );
 };
 

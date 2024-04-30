@@ -22,7 +22,12 @@ const DeleteSubscriptionDialog = ({
   onCancel,
 }: DeleteSubscriptionDialogProps) => {
   return (
-    <Dialog onClose={onCancel} title="Confirmation" isOpen={isVisible}>
+    <Dialog
+      data-testid="dialog"
+      onClose={onCancel}
+      title="Confirmation"
+      isOpen={isVisible}
+    >
       <DialogBody icon={<ExclamationMarkCircle />}>
         <Flex direction="column" alignItems="center" gap={2}>
           <Flex justifyContent="center">
@@ -35,12 +40,13 @@ const DeleteSubscriptionDialog = ({
 
       <DialogFooter
         startAction={
-          <Button onClick={onCancel} variant="tertiary">
+          <Button data-testid="cancel-button" onClick={onCancel} variant="tertiary">
             Cancel
           </Button>
         }
         endAction={
           <Button
+            data-testid="confirm-button"
             variant="danger-light"
             startIcon={<Trash />}
             onClick={onConfirm}
