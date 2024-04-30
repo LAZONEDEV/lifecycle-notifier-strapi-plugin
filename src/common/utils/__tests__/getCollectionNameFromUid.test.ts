@@ -1,7 +1,7 @@
 import { getCollectionNameFormUid } from "../getCollectionNameFormUid";
 
 describe("getCollectionNameFormUid", () => {
-  it("should return the collection name from a UID string", () => {
+  it("should return the collection name using a UID string", () => {
     const uid = "api::planet.planet";
     const expectedCollectionName = "planet";
 
