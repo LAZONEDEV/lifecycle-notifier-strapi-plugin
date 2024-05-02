@@ -11,10 +11,12 @@
   "include": [
     // Include the root directory
     "./",
-    "../common/**/*"
+    "../common/**/*",
+    "global.d.ts"
   ],
 
   "exclude": [
     "node_modules"
-  ]
+  ],
+  
 }

@@ -5,9 +5,9 @@ import { Interceptor } from "../types/index";
 type InterceptorsMap = Record<string, Interceptor["callback"]>;
 
 export const getInterceptorsMap = (): InterceptorsMap | undefined => {
-  const availableInterceptors: Interceptor[] = getPluginConfig(
+  const availableInterceptors = getPluginConfig(
     ConfigKeys.INTERCEPTORS
-  );
+  ) as Interceptor[];
   if (!availableInterceptors || !Array.isArray(availableInterceptors)) {
     return;
   }
@@ -24,7 +24,6 @@ export const applyInterceptors = async (
   entry: Record<string, any>,
   interceptorNames: string[]
 ): Promise<Record<string, any>> => {
-
   const interceptorsMap = getInterceptorsMap();
   if (!interceptorsMap || !interceptorNames.length) {
     return entry;

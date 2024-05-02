@@ -3,7 +3,7 @@ import { ConfigKeys } from "../types";
 
 const getInterceptors = () => {
   const config = getPluginConfigs();
-  const interceptors = config[ConfigKeys.INTERCEPTORS] || {};
+  const interceptors = config[ConfigKeys.INTERCEPTORS] || [];
 
   return interceptors.map((interceptor) => interceptor.name);
 };

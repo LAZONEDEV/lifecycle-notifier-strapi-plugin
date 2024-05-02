@@ -1,61 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import {
   ModalLayout,
   ModalHeader,
   Typography,
-  ModalFooter,
-  Button,
   ModalBody,
   Grid,
   GridItem,
   Flex,
   Loader,
 } from "@strapi/design-system";
-import InputField from "../Inputs/InputField";
-import SelectField from "../Inputs/SelectField";
-import { EventType, eventTypes } from "../../../common/config/eventType";
-import { CollectionPicker } from "../Inputs/CollectionPicker";
-import {
-  filterApiCollection,
-  loadCollectionsSchemas,
-} from "../../utils/loadCollections";
-import { CollectionSchema } from "../../types";
-import { AttachableFilePicker } from "../Inputs/AttachableFilePicker";
-import { RecipientPicker } from "../Inputs/RecipientPicker";
-import TextareaField from "../Inputs/TextareaField";
-import { SubscriptionEntry } from "../../../common/types";
-import { SubscriptionService } from "../../services/Subscription";
-import { subscriptionFormValidationSchema } from "../../utils/formValidation";
-import { RelationPicker } from "../Inputs/RelationPicker";
-import { InterceptorPicker } from "../Inputs/InterceptorPicker";
+import InputField from "../../Inputs/InputField";
+import SelectField from "../../Inputs/SelectField";
+import { EventType, eventTypes } from "../../../../common/config/eventType";
+import { CollectionPicker } from "../../Inputs/CollectionPicker";
+import { AttachableFilePicker } from "../../Inputs/AttachableFilePicker";
+import { RecipientPicker } from "../../Inputs/RecipientPicker";
+import TextareaField from "../../Inputs/TextareaField";
+import { SubscriptionEntry } from "../../../../common/types";
+import { SubscriptionService } from "../../../services/Subscription";
+import { subscriptionFormValidationSchema } from "../../../utils/formValidation";
+import { RelationPicker } from "../../Inputs/RelationPicker";
+import { InterceptorPicker } from "../../Inputs/InterceptorPicker";
+import { useCollections } from "../../../hooks/getCollections";
+import Footer from "./../SubscriptionDialog/Footer";
 
 export interface SubscriptionDialogProps {
   onClose: () => void;
   editing?: SubscriptionEntry;
 }
 
-const initialValues: Partial<SubscriptionEntry> = {};
+const initialValues: Partial<SubscriptionEntry> = {
+  subject: "",
+  collectionName: "",
+  mediaFields: [],
+  recipients: [],
+  relations: [],
+  interceptors: [],
+  content: "",
+};
 
 const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
-  const [collections, setCollections] = useState<CollectionSchema[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    const [request, abort] = loadCollectionsSchemas();
-    request.then((result) => {
-      if (result) {
-        const apiCollections = filterApiCollection(result.data);
-        setCollections(apiCollections);
-      }
-      setLoading(false);
-    });
-
-    return () => {
-      abort();
-    };
-  }, []);
+  const { collections, loading } = useCollections();
 
   const onSubmit = async (values: SubscriptionEntry) => {
     if (editing) {
@@ -74,7 +60,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
         </Typography>
       </ModalHeader>
       {loading ? (
-        <Flex padding={10} justifyContent="center">
+        <Flex data-testid="loader" padding={10} justifyContent="center">
           <Loader />
         </Flex>
       ) : (
@@ -89,11 +75,12 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                 <Form>
                   <Grid gap={4}>
                     <GridItem padding={1} col={12}>
-                      <InputField name="subject" label="Subject" />
+                      <InputField required name="subject" label="Subject" />
                     </GridItem>
 
                     <GridItem padding={1} col={6}>
                       <SelectField<EventType>
+                        required
                         name="eventType"
                         label="Event to listen"
                         placeholder="Select an event type"
@@ -104,6 +91,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={6}>
                       <CollectionPicker
+                        required
                         name="collectionName"
                         collections={collections}
                       />
@@ -121,6 +109,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={6}>
                       <RecipientPicker
+                        required
                         collectionFormName="collectionName"
                         name="recipients"
                         collections={collections}
@@ -145,6 +134,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
                     <GridItem padding={1} col={12}>
                       <TextareaField
+                        required
                         label="Template"
                         name="content"
                         placeholder="Template code for the mail"
@@ -155,21 +145,11 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                 </Form>
               </ModalBody>
 
-              <ModalFooter
-                startActions={
-                  <Button type="reset" onClick={onClose} variant="tertiary">
-                    Cancel
-                  </Button>
-                }
-                endActions={
-                  <Button
-                    loading={isSubmitting}
-                    type="submit"
-                    onClick={submitForm}
-                  >
-                    {editing ? "Update subscription" : "Add subscription"}
-                  </Button>
-                }
+              <Footer
+                isSubmitting={isSubmitting}
+                onClose={onClose}
+                submitForm={submitForm}
+                editing={!!editing}
               />
             </>
           )}

@@ -7,11 +7,12 @@ import { RecipientOptionType } from "../../../common/types/index";
 import { RecipientType } from "../../../common/enums/index";
 import { getCollectionNameFormUid } from "../../../common/utils/getCollectionNameFormUid";
 import React from "react";
-import { ConfigService } from "../../services/Config";
 import {
   getRecipientStringValue,
   getRecipientTypeFromString,
 } from "../../utils/recipientStringValue";
+import { useRecipients } from "../../hooks/recipients";
+import { createRecipientLabel } from "../../utils/createRecipientLabel";
 
 export interface RecipientPickerProps extends FormFieldProps {
   collectionFormName: string;
@@ -25,27 +26,15 @@ export const RecipientPicker = ({
   label,
   hint,
   placeholder,
+  ...rest
 }: RecipientPickerProps) => {
   const [customRecipients, setCustomRecipients] = useState<
     RecipientOptionType[]
   >([]);
-  const [envRecipients, setEnvRecipients] = useState<RecipientOptionType[]>([]);
+  const envRecipients = useRecipients();
   const [{ value: selectedCollectionName }] = useField(collectionFormName);
   const [{ value }, { error }, { setValue }] =
     useField<RecipientOptionType[]>(name);
-
-  const loadEnvRecipients = async () => {
-    const envsNames = await ConfigService.getEnvRecipients();
-    if(!envsNames){
-      return;
-    }
-
-    const recipientOptions = envsNames.map<RecipientOptionType>((env) => ({
-      type: RecipientType.ENV,
-      value: env,
-    }));
-    setEnvRecipients(recipientOptions);
-  };
 
   useEffect(() => {
     if (value) {
@@ -57,10 +46,6 @@ export const RecipientPicker = ({
         ...includedCustomsValues,
       ]);
     }
-  }, []);
-
-  useEffect(() => {
-    loadEnvRecipients();
   }, []);
 
   const modelEmailFields = useCollectionFieldType({
@@ -92,6 +77,7 @@ export const RecipientPicker = ({
 
   return (
     <Select
+      aria-label={label}
       label={label}
       multi
       placeholder={placeholder}
@@ -103,20 +89,14 @@ export const RecipientPicker = ({
       onChange={updateValue}
       error={error}
       withTags
+      {...rest}
     >
       {[...envRecipients, ...modelRecipientOption, ...customRecipients].map(
         (field) => {
           const value = getRecipientStringValue(field);
           return (
             <Option key={value} value={value}>
-              {(() => {
-                if (field.type === RecipientType.CUSTOM) {
-                  return field.value;
-                } else if (field.type === RecipientType.ENV) {
-                  return `ENV.${field.value}`;
-                }
-                return `${collectionName}.${field.value}`;
-              })()}
+              {createRecipientLabel(field, collectionName)}
             </Option>
           );
         }
