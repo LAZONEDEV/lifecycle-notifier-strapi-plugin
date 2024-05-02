@@ -5,13 +5,18 @@ import { CollectionSchema, FormFieldProps } from "../../types";
 type CollectionOptionType = {
   name: string;
   value: string;
+  readonly?: boolean;
 };
 
 export interface CollectionPickerProps extends FormFieldProps {
   collections: CollectionSchema[];
 }
 
-export const CollectionPicker = ({ collections, name }: CollectionPickerProps) => {
+export const CollectionPicker = ({
+  collections,
+  name,
+  ...rest
+}: CollectionPickerProps) => {
   const options = useMemo(() => {
     return collections.map<CollectionOptionType>((collection) => ({
       name: collection.info.displayName,
@@ -26,6 +31,7 @@ export const CollectionPicker = ({ collections, name }: CollectionPickerProps) =
       label="Related collection"
       placeholder="Select a collection"
       options={options}
+      {...rest}
     />
   );
 };

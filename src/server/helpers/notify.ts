@@ -89,5 +89,9 @@ export const notify = async (
       : entry;
 
     sendEmail(mailOptions, templateData, finalData).catch(console.error);
+
+    return;
   }
+
+  console.error("Unable to send e-mail because recipient cannot be found");
 };

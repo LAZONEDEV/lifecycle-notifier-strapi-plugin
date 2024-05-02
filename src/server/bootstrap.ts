@@ -1,12 +1,12 @@
 import { loadSubsFromPluginConfig } from "./helpers/loadSubsFromPluginConfig";
 import {
   listenChangeOnCollection,
-  listenCollectionUpdate,
-  loadExistingSubscriptions,
+  listenSubscriptionCollectionUpdate,
 } from "./services/core/listenedCollectionUpdater";
+import { loadExistingSubscriptions } from "./services/core/loadExistingSubscriptions";
 
 export default async () => {
-  listenCollectionUpdate();
+  listenSubscriptionCollectionUpdate();
   await loadExistingSubscriptions();
   listenChangeOnCollection();
   loadSubsFromPluginConfig()

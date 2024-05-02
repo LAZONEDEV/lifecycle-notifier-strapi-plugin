@@ -19,11 +19,13 @@ function SelectField<P extends WithValue>({
   placeholder,
   getName,
   multi,
+  required,
 }: SelectFieldProps<P>) {
   const [{ value }, { error }, { setValue }] = useField<P>(name);
 
   return (
     <Select
+      aria-label={label}
       label={label}
       value={value}
       onChange={setValue}
@@ -31,6 +33,7 @@ function SelectField<P extends WithValue>({
       placeholder={placeholder}
       hint={hint}
       multi={multi}
+      required={required}
     >
       {options.map((item) => {
         const name = getName(item);
