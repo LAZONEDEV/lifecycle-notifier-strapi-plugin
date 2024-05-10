@@ -1,21 +1,65 @@
-import React from "react";
 import { render, waitFor } from "@testing-library/react";
+import React from "react";
 import SubscriptionDialog from "../SubscriptionDialog";
 
-import StrapiThemeProvider from "../../../../testUtils/StrapiThemeProvider";
-import { EventType } from "../../../../../common/enums";
 import userEvent from "@testing-library/user-event";
-import { selectOption } from "../../../../testUtils/selectionOption";
+import { EventType, RecipientType } from "../../../../../common/enums";
 import {
-  collections,
-  interceptors,
-  planetCollection,
-  recipients,
-} from "./fakeData";
-import { createRecipientLabel } from "../../../../utils/createRecipientLabel";
-import { SubscriptionService } from "../../../../services/Subscription";
-import { SubscriptionEntry } from "../../../../../common/types";
+  RecipientOptionType,
+  SubscriptionEntry,
+} from "../../../../../common/types";
 import { useCollections } from "../../../../hooks/getCollections";
+import { SubscriptionService } from "../../../../services/Subscription";
+import { selectOption } from "../../../../testUtils/selectionOption";
+import StrapiThemeProvider from "../../../../testUtils/StrapiThemeProvider";
+import { CollectionSchema, InterceptorOptionType } from "../../../../types";
+import { createRecipientLabel } from "../../../../utils/createRecipientLabel";
+
+export const planetCollection = {
+  uid: "api::planet.planet",
+  info: {
+    name: "Planet",
+    singularName: "planet",
+    pluralName: "planets",
+    displayName: "Planet",
+    description: "",
+  },
+  attributes: {
+    email: {
+      type: "email",
+    },
+    image: {
+      type: "media",
+      multiple: true,
+      required: false,
+      allowedTypes: ["images", "files", "videos", "audios"],
+    },
+    by: {
+      type: "relation",
+      relation: "oneToOne",
+      target: "plugin::users-permissions.user",
+      inversedBy: "planet",
+      targetModel: "plugin::users-permissions.user",
+      relationType: "oneToOne",
+    },
+  },
+} as Partial<CollectionSchema>;
+
+export const collections = [planetCollection];
+
+export const recipients = [
+  {
+    type: RecipientType.ENV,
+    value: "env1",
+  },
+] as RecipientOptionType[];
+
+export const interceptors: InterceptorOptionType[] = [
+  {
+    name: "interceptor 1",
+    value: "interceptor 1",
+  },
+];
 
 // mock modules
 jest.mock("../../../../hooks/getCollections", () => ({
