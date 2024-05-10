@@ -1,7 +1,9 @@
 import pluginId from "../../common/utils/pluginId";
 import { PluginStoreKeys, StrapiStore } from "../types";
+import { getStrapi } from "./getStrapi";
 
 export const getPluginStore = (key: string): StrapiStore => {
+  const strapi = getStrapi();
   return strapi.store({
     key,
     name: pluginId,
