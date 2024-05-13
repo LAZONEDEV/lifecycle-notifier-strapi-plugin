@@ -19,14 +19,18 @@
     "noEmit": false
   },
 
-  "include": [
-    "./",
-    "../common/**/*"
-  ],
+  "include": ["./", "../common/**/*"],
 
   "files": [
     // force include translation files
     "./translations/en.json",
-    "./translations/fr.json",
+    "./translations/fr.json"
+  ],
+
+  "exclude": [
+    "node_modules/",
+    "**/__tests__/**/*",
+    "**/testUtils/**/*",
+    "**/__test__/**/*"
   ]
 }
