@@ -102,7 +102,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         collectionFormName="collectionName"
                         name="mediaFields"
                         collections={collections}
-                        label="Selection file to join"
+                        label="Select files to join"
                         placeholder="Select field"
                       />
                     </GridItem>
