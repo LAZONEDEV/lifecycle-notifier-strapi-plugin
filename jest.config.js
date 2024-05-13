@@ -7,4 +7,5 @@ module.exports = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
+  testRegex: ["(test|spec)\\.[jt]sx?$"],
 };
