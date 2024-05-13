@@ -3,13 +3,7 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest/setup.ts"],
-  globals: {
-    Request,
-    Response,
-    fetch,
-    TextEncoder,
-    structuredClone,
-  },
+  setupFiles: ["./jest/jest.pollyfills.js"],
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
