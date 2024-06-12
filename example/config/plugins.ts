@@ -59,8 +59,8 @@ export default ({ env }) => {
             eventType: "afterCreate",
             recipients: [
               {
-                type: "CUSTOM",
-                value: "custom@gmail.com",
+                type: "FROM_THE_ENTRY_RELATION",
+                value: "createdBy.email",
               },
             ],
             content:
