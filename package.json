@@ -1,10 +1,10 @@
 {
   "name": "lifecycle-notifier",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "description": "The Lifecycle Notifier Strapi plugin provides lifecycle notifications for your Strapi application. Get notified via email about entity creation, updates, and deletions, with customizable email templates and intuitive configuration.",
   "strapi": {
     "name": "lifecycle-notifier",
-    "description": "Description of lifecycle-notifier plugin",
+    "description": "The Lifecycle Notifier Strapi plugin provides lifecycle notifications for your Strapi application. Get notified via email about entity creation, updates, and deletions, with customizable email templates and intuitive configuration.",
     "kind": "plugin"
   },
   "dependencies": {
