@@ -8,24 +8,24 @@ export const getRecipientEmail = async (
   collectionEntry: object,
   collectionName: string
 ) => {
-  if (value.type === RecipientType.FROM_THE_ENTRY_RELATION) {
-    const strapi = getStrapi();
-    const entry = await strapi.db.query(collectionName).findOne({
-      where: { id: collectionEntry["id"] },
-      populate: [value.value],
-    });
+  switch (value.type) {
+    case RecipientType.FROM_THE_ENTRY_RELATION:
+      const strapi = getStrapi();
+      const entry = await strapi.db.query(collectionName).findOne({
+        where: { id: collectionEntry["id"] },
+        populate: [value.value],
+      });
 
-    const recipientEmail = get(entry, value.value);
-    return recipientEmail;
+      const recipientEmail = get(entry, value.value);
+      return recipientEmail;
+
+    case RecipientType.CUSTOM:
+      return value.value;
+
+    case RecipientType.FROM_MODEL:
+      return collectionEntry[value.value];
+
+    default:
+      return process.env[value.value];
   }
-
-  if (value.type === RecipientType.CUSTOM) {
-    return value.value;
-  }
-
-  if (value.type === RecipientType.FROM_MODEL) {
-    return collectionEntry[value.value];
-  }
-
-  return process.env[value.value];
 };
