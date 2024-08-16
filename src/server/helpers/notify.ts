@@ -13,7 +13,11 @@ export const notify = async (
   recipient: RecipientOptionType,
   entry: Record<string, any>
 ) => {
-  const mailTo = getRecipientEmail(recipient, entry);
+  const mailTo = await getRecipientEmail(
+    recipient,
+    entry,
+    subscription.collectionName
+  );
   if (mailTo) {
     const mailOptions: MailOptions = {
       to: mailTo,
