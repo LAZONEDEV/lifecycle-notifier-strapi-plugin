@@ -1,56 +1,65 @@
 # Strapi Plugin - Lifecycle Notifier
 
-The Lifecycle Notifier Strapi plugin is designed to add a lifecycle notification feature to your Strapi application. It allows you to track and receive notifications about important events happening in your application.
+The Lifecycle Notifier Strapi plugin is designed to add a lifecycle notification feature to your Strapi application. Get notified via email about entity creation, updates, and deletions, with customizable email templates and intuitive configuration.
 
-## Features
+## Key Features
 
-- Email notification when a new entity is created.
-- Email notification when an entity is updated.
-- Email notification when an entity is deleted.
-- Customization of email templates for notifications.
-- Easy and intuitive configuration via the Strapi administration interface.
+- [x] **Instant Email Alerts**: Receive email notifications immediately when a new entry is added to any collection.
+- [ ] **Update Notifications**: Coming soon! Get notified when existing entries are modified.
+- [ ] **Deletion Alerts**: Coming soon! Be alerted whenever an entry is removed.
+- [x] **Customizable Email Templates**: Personalize your notification emails with flexible template options.
+- [x] **User-Friendly Configuration**: Easily set up and manage notifications through Strapi’s intuitive admin interface.
 
 ## Installation
 
-To install the Lifecycle Notifier plugin, follow the steps below:
+Follow these simple steps to install the **Lifecycle Notifier** plugin:
 
-Make sure you have Strapi installed in your project.
+1. **Ensure Strapi is setup**: Confirm that your project already has Strapi set up and running.
+2. **Install the Plugin**: Run the following command to add the Lifecycle Notifier plugin to your project:
 
-Run the following command to install the plugin:
+   ```bash
+   npm install lifecycle-notifier --save
+   ```
 
-```bash
-npm install lifecycle-notifier --save
-```
+3. **Restart Your Server**: Once the installation is complete, restart your Strapi server to apply the plugin changes.
+4. **Access the Plugin**: Log in to the Strapi administration panel, then navigate to the "Lifecycle Notifier" section in the sidebar.
 
-Restart your Strapi server to apply the changes.
-
-Log in to the Strapi administration interface, go to the "Lifecycle Notifier" section.
-![Plugin item in the sidebar menu](assets/plugin_item_in_side_bar.png)
+   ![The plugin link in the sidebar](https://github.com/user-attachments/assets/c23557ea-e260-4a71-b52c-a4f5b49acaed)
 
 ## Start adding subscriptions
 
-To add a subscription form the admin interface, click on the "Add Subscription" button. Add fill the form in the modal.
+To add a subscription form in the admin interface, follow these steps:
 
-| Field                | Description                                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `Subject`            | The subject of the subscription. It is used as Subject while sending the notification mail.                    |
-| `Related collection` | The name of the collection for which the subscription is created.                                              |
-| `Event to listen`    | The type of event for which the subscription will trigger (e.g., 'create', 'update', 'delete').                |
-| `Recipient`          | Contains recipient information to receive the subscription notifications.                                    |
-| `Template`           | The content of the subscription notification. It can be in plain text or HTML template format. You can include the listened collection data using this syntax: `<%= fieldName %>` |
-| `File to join`       | Contains information about media fields (fields of the listened collection) to include in the subscription. |
+1. Click the **"Add new Subscription"** button.
+2. Fill in the form in the modal that appears.
 
-### Template customization
+### Subscription Form Fields
 
-The `Template` field allows you to define the content of the subscription notification. You can provide either plain text or an HTML template. The template can include dynamic placeholders that will be replaced with actual data from the listened collection when the notification is triggered.
+| **Field**              | **Description**                                                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `Subject`              | The subject of the subscription, used as the subject line in the notification emails.                                                      |
+| `Related collection`   | The name of the collection associated with the subscription.                                                                               |
+| `Event to listen`      | The event type that triggers the subscription (e.g., `create`, `update`, `delete`).                                                        |
+| `Recipient`            | Specifies the recipient who will receive the notification emails.                                                                          |
+| `Template`             | The content of the notification, which can be in plain text or HTML. You can dynamically include collection data using `<%= fieldName %>`. |
+| `File to join`         | Allows you to attach media files from the collection to the notification email.                                                            |
+| `Relation to populate` | Defines the relationship field to populate within the entry, enabling you to display related values in the email notification.             |
+| `Interceptors`         | This allows you to use javascript to transform the data before sending the notification                                                    |
+
+## Template Customization
+
+The `Template` field lets you define the content of your subscription notification. You can use plain text or HTML, and include dynamic placeholders that are automatically replaced with actual data from the associated entry when the notification is triggered.
 
 Example:
-Let's say you have a subscription for the 'Product' collection to receive notifications when new products are created. Your template could look like this:
+Suppose you have a subscription set up for the 'Product' collection, and you want to receive notifications when new products are added. Your template might look like this:
 
 ```html
 <h2>New Product Created!</h2>
 <p>Hello <%= clientName %>,</p>
-<p>We are excited to inform you that a new product has been added to our collection.</p>
+<p>
+  We are excited to inform you that a new product has been added to our
+  collection.
+</p>
 <p>Product Details:</p>
 <ul>
   <li><strong>Name:</strong> <%= productName %></li>
@@ -60,65 +69,90 @@ Let's say you have a subscription for the 'Product' collection to receive notifi
 <p>Thank you for using our service!</p>
 ```
 
-In this example, we have used placeholders like <%= clientName %>, <%= productName %>, <%= productPrice %>, and <%= productCategory %> in the HTML template. When the notification is triggered, these placeholders will be dynamically replaced with the actual data from the new product that triggered the event. For instance, if a new product with the name "Super Widget" and the price "$19.99" is added, the notification email will look like:
+In this template, placeholders like <%= clientName %>, <%= productName %>, <%= productPrice %>, and <%= productCategory %> are used. When the notification is triggered, these placeholders will be replaced with real data from the new product. For example, if a new product called "Super Widget" with a price of "$19.99" is created, the email might look like this:
 
 ```html
 <h2>New Product Created!</h2>
 <p>Hello John,</p>
-<p>We are excited to inform you that a new product has been added to our collection.</p>
+<p>
+  We are excited to inform you that a new product has been added to our
+  collection.
+</p>
 <p>Product Details:</p>
 <ul>
   <li><strong>Name:</strong> Super Widget</li>
   <li><strong>Price:</strong> $19.99</li>
-  <li><strong>Category:</strong> Electronics</li>
+  <li><strong>Category:</strong>Electronics</li>
 </ul>
 <p>Thank you for using our service!</p>
 ```
 
-Once the subscription is created, the plugin will automatically send the notification email when the event is triggered.
+Once you’ve created the subscription, the plugin will automatically send the notification email whenever the specified event (e.g., product creation) occurs.
 
-You cant also manage ( update, delete) subscriptions form the plugin home page.
-
-Contribution
-Contributions are welcome! If you want to improve the Lifecycle Notifier plugin, please follow the steps below:
-
-Fork this repository and clone it to your machine.
-
-Install dependencies using npm install.
-
-Make your modifications and improvements.
-
-Test the changes with Strapi.
-
-Submit a pull request with a detailed description of the changes made.
+Additionally, you can manage subscriptions—update or delete them—directly from the plugin's home page.
 
 ## Recipient Types
 
-The Recipient field can have three types: `ENV`, `MODEL`, and `CUSTOM`.
+The Recipient field can have three types value: `ENV`, `MODEL`, and `CUSTOM`.
 
 - `ENV` (Environment Variable) Recipient:
-Recipients of type ENV are defined in the plugin configurations and must reference an environment variable that contains the email address. This allows you to dynamically set the recipient email based on the value of the specified environment variable. You can add it using the `envRecipients` config field. See example below
+  Recipients of type ENV are defined in the plugin configurations and must reference an environment variable that contains the email address. This allows you to dynamically set the recipient email based on the value of the specified environment variable. You can add it using the `envRecipients` config field. See example below
 
 ```json
 {
-  // ...
   "lifecycle-notifier": {
-    enabled: true,
-    resolve: "../plugin",
-    config: {
-      envRecipients: ["TEST_RECIPIENT_EMAIL"],
-    },
-  },
-  // ...
+    "enabled": true,
+    "resolve": "../plugin",
+    "config": {
+      "envRecipients": ["TEST_RECIPIENT_EMAIL"]
+    }
+  }
 }
 ```
 
 - `MODEL` Recipient:
-Recipients of type MODEL reference the email field on the collection being listened to. This means that the email address for the recipient will be fetched from the email fields of the respective collection entry that triggered the notification. You can specify these fields within `Recipient` field in the subscription creation form.
-
+  Recipients of type MODEL reference the email field on the collection being listened to. This means that the email address for the recipient will be fetched from the email fields of the respective collection entry that triggered the notification. You can specify these fields within `Recipient` field in the subscription creation form.
 
 - `CUSTOM` Recipient:
-You can use this type when you add subscriptions in the plugins configurations. Learn more about how to add subscriptions in the plugins configurations below.
+  You can use this type when you add subscriptions in the plugins configurations. Learn more about how to add subscriptions in the plugins configurations below.
+
+## Interceptors
+
+An Interceptor is a JavaScript function defined in your plugin configuration that allows you to modify or compute new values for the entry being processed. These new values can then be used within the notification template.
+
+Here is the TypeScript type for an interceptor:
+
+```ts
+export interface Interceptor {
+  name: string;
+  callback: (
+    entry: Record<string, any>
+  ) => Promise<Record<string, any>> | undefined;
+}
+```
+
+- `name` : The name of the interceptor, displayed in the admin modal. This allows you to select which interceptors to apply when creating a subscription. Ensure that each interceptor has a unique name, as duplicate names will result in the last defined interceptor replacing the previous ones.
+
+- `callback` : A function that takes the current entry data as input and returns a modified version of the entry or undefined. This function processes the entry data and can either return a new object with additional or modified fields, or undefined if no modifications are needed. The returned object will be merged with the original entry data, with any overlapping keys having their values replaced by the returned ones.
+
+Example: Consider the following interceptor that formats a date field
+
+```ts
+const discoveredDateFormatterInterceptor = {
+  name: "discoveryDateFormatter",
+  callback: (entry: Record<string, string>) => {
+    const date = entry["discoveryDate"];
+
+    return {
+      formattedDiscoveryDate: new Date(date).toLocaleString(),
+    };
+  },
+};
+```
+
+In this example, the interceptor adds a new key, `formattedDiscoveryDate`, to the entry. This key can then be used in the notification template to display the formatted date.
+
+> [!NOTE] The callback function must return an object and this object will append to the original entry. Then if you return an object that have a key which also exist on the original entry then the value on the entry will be replace with the new value you returned.
 
 ## Adding subscriptions from plugin configurations
 
@@ -126,40 +160,38 @@ You can also add subscriptions from the plugin configuration. This allows you to
 
 ```json
 {
-  // ...
   "lifecycle-notifier": {
-    enabled: true,
-    resolve: "../plugin",
-    config: {
-      subscriptions: [
+    "enabled": true,
+    "config": {
+      "subscriptions": [
         {
-          collectionName: "api::planet.planet",
-          eventType: "afterCreate",
-          recipients: [
+          "collectionName": "api::planet.planet",
+          "eventType": "afterCreate",
+          "recipients": [
             {
-              type: "CUSTOM",
-              value: "custom@gmail.com",
-            },
+              "type": "CUSTOM",
+              "value": "custom@gmail.com"
+            }
           ],
-          content: "Just send the name: <%= name =>",
-          mediaFields: ["image"],
-          createdAt: "2023-07-23T19:34:24.654Z",
-          updatedAt: "2023-07-23T20:01:03.075Z",
-          subject: "Testing subs in config",
-        },
-      ],
-    },
+          "content": "Just send the name: <%= name =>",
+          "mediaFields": ["image"],
+          "createdAt": "2023-07-23T19:34:24.654Z",
+          "updatedAt": "2023-07-23T20:01:03.075Z",
+          "subject": "Testing subs in config"
+        }
+      ]
+    }
   }
-  // ...
 }
 ```
+
+> [!NOTE] Be aware of a limitation with the current implementation: the plugin loads your subscriptions only once, at the initial startup when it first discovers the subscriptions in your configuration. Consequently, any changes such as updates, deletions, or removals of subscriptions ( in the plugins config ) will not be reflected even you restart.
 
 ## Plugin configurations
 
 Example configuration
 
 ```json
-// ...
 {
   // Define environment variable recipients for the plugin. The plugin will fetch the email address from the environment variable "TEST_RECIPIENT_EMAIL".
   envRecipients: ["TEST_RECIPIENT_EMAIL"],
@@ -168,15 +200,21 @@ Example configuration
   defaultFrom: env("DEFAULT_MAIL_FROM"),
 
   // Define the list of subscriptions.
-  subscriptions: [] 
+  subscriptions: []
+
+  interceptors: []
 }
-// ...
 ```
+
+## How are e-mails sent ? 
+
+The plugin use your email provider that your setup to send notifications.
+[Check how to setup email provider in Strapi](https://docs.strapi.io/cloud/advanced/email)
 
 ## Contributions
 
-
+[@BOCOVO](https://github.com/BOCOVO) [@Valentino-Houessou](https://github.com/Valentino-Houessou) [@LewisYann](https://github.com/LewisYann) [@vladnacht](https://github.com/vladnacht) [@cliffordten](https://github.com/cliffordten)
 
 ## License
-This plugin is distributed under the MIT license. See the LICENSE file for more information.
 
+This plugin is distributed under the MIT license. See the LICENSE file for more information.
