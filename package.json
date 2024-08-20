@@ -1,6 +1,7 @@
 {
   "name": "lifecycle-notifier",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  
   "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
   "strapi": {
     "name": "lifecycle-notifier",
