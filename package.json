@@ -52,13 +52,45 @@
     "styled-components": "^5.3.6"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Juste BOCOVO"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "LA ZONE",
+      "url": "https://www.la-zone.io",
+      "email": "admin@la-zone.io"
     }
   ],
+  "contributors": [
+    {
+      "name": "Juste BOCOVO",
+      "url": "https://github.com/BOCOVO"
+    },
+    {
+      "name": "Valentino Houessou",
+      "url": "https://github.com/Valentino-Houessou"
+    },
+    {
+      "name": "Lewis ALLEDJI",
+      "url": "https://github.com/LewisYann"
+    },
+    {
+      "name": "NASSIROU Kamal Dyne",
+      "url": "https://github.com/vladnacht"
+    },
+    {
+      "name": "Teneng Clifford",
+      "url": "https://github.com/cliffordten"
+    }
+  ],
+  "homepage": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin",
+  "bugs": {
+    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin.git"
+  },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
