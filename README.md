@@ -21,10 +21,22 @@ Follow these simple steps to install the **Lifecycle Notifier** plugin:
    npm install lifecycle-notifier --save
    ```
 
-3. **Restart Your Server**: Once the installation is complete, restart your Strapi server to apply the plugin changes.
-4. **Access the Plugin**: Log in to the Strapi administration panel, then navigate to the "Lifecycle Notifier" section in the sidebar.
+3. **Add the plugin in your configuration** open your project plugin settings file and add these lines
 
-   ![The plugin link in the sidebar](https://github.com/user-attachments/assets/c23557ea-e260-4a71-b52c-a4f5b49acaed)
+   ```js
+   {
+    // other on configs...
+     "lifecycle-notifier": {
+        enabled: true,
+        config: {},
+     }
+   }
+   ```
+
+4. **Restart Your Server**: Once the installation is complete, restart your Strapi server to apply the plugin changes.
+5. **Access the Plugin**: Log in to the Strapi administration panel, then navigate to the "Lifecycle Notifier" section in the sidebar.
+
+![The plugin link in the sidebar](https://github.com/user-attachments/assets/c23557ea-e260-4a71-b52c-a4f5b49acaed)
 
 ## Start adding subscriptions
 
@@ -191,7 +203,7 @@ You can also add subscriptions from the plugin configuration. This allows you to
 
 Example configuration
 
-```json
+```js
 {
   // Define environment variable recipients for the plugin. The plugin will fetch the email address from the environment variable "TEST_RECIPIENT_EMAIL".
   envRecipients: ["TEST_RECIPIENT_EMAIL"],
@@ -206,7 +218,7 @@ Example configuration
 }
 ```
 
-## How are e-mails sent ? 
+## How are e-mails sent ?
 
 The plugin use your email provider that your setup to send notifications.
 [Check how to setup email provider in Strapi](https://docs.strapi.io/cloud/advanced/email)
