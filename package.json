@@ -8,7 +8,7 @@
     "kind": "plugin"
   },
   "dependencies": {
-    "@strapi/helper-plugin": "^4.6.0",
+    "@strapi/helper-plugin": "^4.13.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "formik": "^2.4.2",
@@ -21,10 +21,10 @@
     "@babel/core": "^7.24.1",
     "@babel/preset-env": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
-    "@strapi/typescript-utils": "^4.11.7",
-    "@strapi/strapi": "4.11.7",
-    "@strapi/design-system": "1.6.3",
-    "@strapi/icons": "1.6.3",
+    "@strapi/design-system": "1.7.3",
+    "@strapi/icons": "1.7.3",
+    "@strapi/typescript-utils": "^4.13.0",
+    "@strapi/strapi": "4.13.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@types/node": "^20.4.4",
@@ -46,9 +46,9 @@
     "undici": "^6.13.0"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.11.7",
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/icons": "^1.6.3",
+    "@strapi/strapi": "^4.13.0",
+    "@strapi/design-system": "^1.7.3",
+    "@strapi/icons": "^1.7.3",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-router-dom": "^5.3.4",
