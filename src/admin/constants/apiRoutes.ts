@@ -1,7 +1,5 @@
 import { subscriptionCollectionUid } from "../../common/constants";
 
-console.log({});
-
 export const apiRoutes = {
   contentTypes: "/content-manager/content-types",
   pluginEnvRecipients: "/lifecycle-notifier/env-recipients",
