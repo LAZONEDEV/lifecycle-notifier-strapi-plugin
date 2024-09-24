@@ -3,8 +3,9 @@ import { listenedCollection } from "../../constants/listenedCollection";
 import type { SubscriberFn } from "@strapi/database/lib/lifecycles/subscribers";
 import { getSubscriptionsForCollection } from "../../helpers/getSubsForCollection";
 import { CollectionEntry } from "../../types";
+import { EventType } from "../../../common/enums";
 
-export const handleEventSubscription: SubscriberFn = async (event) => {
+export const handleEventSubscription: SubscriberFn = async (event) => {  
   const willSendNotification = listenedCollection.has(event.model.uid);
 
   if (!willSendNotification) {
@@ -15,7 +16,8 @@ export const handleEventSubscription: SubscriberFn = async (event) => {
   const createdEntry = event.result || event.params.data;
 
   const relatedSubscriptions = await getSubscriptionsForCollection(
-    collectionUid
+    collectionUid,
+    event.action as EventType
   );
 
   for (const relatedSubscription of relatedSubscriptions) {

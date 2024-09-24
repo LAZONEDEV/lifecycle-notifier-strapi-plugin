@@ -70,6 +70,38 @@ export default ({ env }) => {
             updatedAt: "2023-07-23T20:01:03.075Z",
             subject: "Testing subs in config",
           },
+          {
+            collectionName: "api::planet.planet",
+            eventType: "afterUpdate",
+            recipients: [
+              {
+                type: "FROM_THE_ENTRY_RELATION",
+                value: "createdBy.email",
+              },
+            ],
+            content:
+              "The planet <%= name %> has been discovered on <%= formattedDiscoveryDate %>!",
+            mediaFields: ["image"],
+            createdAt: "2023-07-23T19:34:24.654Z",
+            updatedAt: "2023-07-23T20:01:03.075Z",
+            subject: "Testing subs in config",
+          },
+          {
+            collectionName: "api::planet.planet",
+            eventType: "afterDelete",
+            recipients: [
+              {
+                type: "FROM_THE_ENTRY_RELATION",
+                value: "createdBy.email",
+              },
+            ],
+            content:
+              "The planet <%= name %> has been discovered on <%= formattedDiscoveryDate %>!",
+            mediaFields: ["image"],
+            createdAt: "2023-07-23T19:34:24.654Z",
+            updatedAt: "2023-07-23T20:01:03.075Z",
+            subject: "Testing subs in config",
+          },
         ],
         interceptors: [discoveredDateFormatterInterceptor],
       },
