@@ -2,10 +2,52 @@
   "name": "lifecycle-notifier",
   "version": "1.0.3",
   "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
-  "strapi": {
-    "name": "lifecycle-notifier",
-    "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
-    "kind": "plugin"
+  "homepage": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin",
+  "bugs": {
+    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Juste BOCOVO"
+  },
+  "maintainers": [
+    {
+      "name": "LA ZONE",
+      "email": "admin@la-zone.io",
+      "url": "https://www.la-zone.io"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Juste BOCOVO",
+      "url": "https://github.com/BOCOVO"
+    },
+    {
+      "name": "Valentino Houessou",
+      "url": "https://github.com/Valentino-Houessou"
+    },
+    {
+      "name": "Lewis ALLEDJI",
+      "url": "https://github.com/LewisYann"
+    },
+    {
+      "name": "NASSIROU Kamal Dyne",
+      "url": "https://github.com/vladnacht"
+    },
+    {
+      "name": "Teneng Clifford",
+      "url": "https://github.com/cliffordten"
+    }
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "develop": "tsc -b -w",
+    "prepare": "husky",
+    "test": "jest --collectCoverage"
   },
   "dependencies": {
     "@strapi/helper-plugin": "^4.6.0",
@@ -21,10 +63,10 @@
     "@babel/core": "^7.24.1",
     "@babel/preset-env": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
-    "@strapi/typescript-utils": "^4.11.7",
-    "@strapi/strapi": "4.11.7",
     "@strapi/design-system": "1.6.3",
     "@strapi/icons": "1.6.3",
+    "@strapi/strapi": "4.14.5",
+    "@strapi/typescript-utils": "^4.11.7",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@types/node": "^20.4.4",
@@ -53,63 +95,21 @@
     "undici": "^6.13.0"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.11.7",
     "@strapi/design-system": "^1.6.3",
     "@strapi/icons": "^1.6.3",
+    "@strapi/strapi": "^4.14.5",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-router-dom": "^5.3.4",
     "styled-components": "^5.3.6"
   },
-  "author": {
-    "name": "Juste BOCOVO"
-  },
-  "maintainers": [
-    {
-      "name": "LA ZONE",
-      "url": "https://www.la-zone.io",
-      "email": "admin@la-zone.io"
-    }
-  ],
-  "contributors": [
-    {
-      "name": "Juste BOCOVO",
-      "url": "https://github.com/BOCOVO"
-    },
-    {
-      "name": "Valentino Houessou",
-      "url": "https://github.com/Valentino-Houessou"
-    },
-    {
-      "name": "Lewis ALLEDJI",
-      "url": "https://github.com/LewisYann"
-    },
-    {
-      "name": "NASSIROU Kamal Dyne",
-      "url": "https://github.com/vladnacht"
-    },
-    {
-      "name": "Teneng Clifford",
-      "url": "https://github.com/cliffordten"
-    }
-  ],
-  "homepage": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin",
-  "bugs": {
-    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin.git"
-  },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
-  "scripts": {
-    "develop": "tsc -b -w",
-    "build": "tsc -b",
-    "test": "jest --collectCoverage",
-    "prepare": "husky"
-  },
-  "license": "MIT"
+  "strapi": {
+    "name": "lifecycle-notifier",
+    "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
+    "kind": "plugin"
+  }
 }
