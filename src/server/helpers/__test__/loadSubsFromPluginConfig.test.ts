@@ -3,8 +3,7 @@ import { getPluginConfig } from "../getPluginConfig";
 import { getFromStore, saveInStore } from "../pluginStore";
 import { validate } from "jsonschema";
 import { insertSubscription } from "../insertSubscription";
-import { ConfigKeys, PluginStoreKeys } from "../../types";
-import { subscriptionsSchema } from "../../utils/configValidator";
+import { PluginStoreKeys } from "../../types";
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 
 jest.mock("../getPluginConfig");
@@ -48,4 +47,3 @@ describe("Unit Test for loadSubsFromPluginConfig Funtion", () => {
     expect(saveInStore).toHaveBeenCalledWith(PluginStoreKeys.POPULATED, true);
   });
 });
-

@@ -34,8 +34,11 @@ export const loadSubsFromPluginConfig = async () => {
     }
     await saveInStore(PluginStoreKeys.POPULATED, true);
   } catch (error) {
-    console.error(`
+    console.error(
+      `
     The error below occur while loading the subscription from the plugin config
-    `);
+    `,
+      error
+    );
   }
 };

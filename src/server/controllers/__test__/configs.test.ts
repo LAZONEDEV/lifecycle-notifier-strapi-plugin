@@ -1,5 +1,4 @@
 import pluginId from "../../../common/utils/pluginId";
-import { ConfigServiceApi } from "../../services/config";
 import Config from "../configs";
 import { describe, it, expect, jest, beforeEach } from "@jest/globals";
 
@@ -36,4 +35,3 @@ describe("Configurations Controller Tests", () => {
     expect(result).toBe(pluginId);
   });
 });
-

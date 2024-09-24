@@ -96,7 +96,7 @@ const configSchema = {
   required: [],
 };
 
-export const validateConfig = (conf: any) => {
+export const validateConfig = (conf: object) => {
   const validator = new Validator();
   const validationResult = validator.validate(conf, configSchema);
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import HomePage from "../index";
