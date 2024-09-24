@@ -11,7 +11,12 @@ export const sendEmail = async (
   template: TemplateData,
   data: unknown
 ) => {
-  const emailService = getEmailService();
+  try {
+    const emailService = getEmailService();
 
-  return emailService.sendTemplatedEmail(mailOptions, template, data);
-};
+    return await emailService.sendTemplatedEmail(mailOptions, template, data);
+  
+  } catch (error) {
+    console.error("Could not send email with error: ", error)
+  }
+ };
