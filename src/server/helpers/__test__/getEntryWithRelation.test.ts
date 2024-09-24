@@ -1,11 +1,4 @@
-import {
-  describe,
-  it,
-  expect,
-  jest,
-  beforeEach,
-  afterEach,
-} from "@jest/globals";
+import { describe, it, expect, jest, afterEach } from "@jest/globals";
 
 import { getEntryWithRelation } from "../getEntryWithRelation";
 import { getCollectionEntityManager } from "../getEntityManager";
@@ -106,4 +99,3 @@ describe("getEntryWithRelation", () => {
     expect(consoleSpy).toHaveBeenCalledWith(new Error("Test error"));
   });
 });
-

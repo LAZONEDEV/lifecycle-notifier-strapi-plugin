@@ -1,6 +1,5 @@
-import {
-  SubscriptionEntry,
-} from "../../common/types/index";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { SubscriptionEntry } from "../../common/types/index";
 
 export interface PluginConfigs {
   [ConfigKeys.ENV_RECIPIENT]?: string[];

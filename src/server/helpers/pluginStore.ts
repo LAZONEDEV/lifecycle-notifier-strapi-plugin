@@ -17,6 +17,7 @@ export const getFromStore = async (key: PluginStoreKeys) => {
   return value;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const saveInStore = async (key: PluginStoreKeys, value: any) => {
   const store = getPluginStore(key);
   store.set({ value });

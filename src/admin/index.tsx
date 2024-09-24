@@ -1,9 +1,9 @@
-import { prefixPluginTranslations } from '@strapi/helper-plugin';
+import { prefixPluginTranslations } from "@strapi/helper-plugin";
 
-import pluginId from '../common/utils/pluginId';
-import Initializer from './components/Initializer';
-import PluginIcon from './components/PluginIcon';
-import getTrad from './utils/getTrad';
+import pluginId from "../common/utils/pluginId";
+import Initializer from "./components/Initializer";
+import PluginIcon from "./components/PluginIcon";
+import getTrad from "./utils/getTrad";
 
 const name = pluginId;
 
@@ -17,7 +17,9 @@ export default {
         defaultMessage: name,
       },
       Component: async () => {
-        const component = await import(/* webpackChunkName: "[request]" */ './pages/App');
+        const component = await import(
+          /* webpackChunkName: "[request]" */ "./pages/App"
+        );
 
         return component;
       },
@@ -33,7 +35,7 @@ export default {
     app.registerPlugin(plugin);
   },
 
-  bootstrap(app: any) {},
+  bootstrap() {},
 
   async registerTrads(app: any) {
     const { locales } = app;

@@ -1,4 +1,4 @@
 export const getCollectionNameFormUid = (uid: string) => {
-  const [_,collectionName] = uid.split(".")
-  return collectionName
-}
+  const collectionName = uid.split(".")[1];
+  return collectionName;
+};
