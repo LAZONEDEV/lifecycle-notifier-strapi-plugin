@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0]
+
+### Added
+
+- Supporting notification for after update event
+- Supporting notification for after delete event
+
 ## [1.0.0]
 
 ### Added
