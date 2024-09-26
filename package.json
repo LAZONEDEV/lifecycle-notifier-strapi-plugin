@@ -5,11 +5,11 @@
   "strapi": {
     "name": "lifecycle-notifier",
     "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
-    "kind": "plugin"
+    "kind": "plugin",
+    "displayName": "Lifecycle notifier"
   },
   "dependencies": {
-    "@strapi/helper-plugin": "^4.6.0",
-    "@testing-library/user-event": "^14.5.2",
+    "@strapi/helper-plugin": "^4.25.12",
     "@types/jest": "^29.5.12",
     "formik": "^2.4.2",
     "jsonschema": "^1.4.1",
@@ -21,17 +21,18 @@
     "@babel/core": "^7.24.1",
     "@babel/preset-env": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
-    "@strapi/typescript-utils": "^4.11.7",
-    "@strapi/strapi": "4.11.7",
-    "@strapi/design-system": "1.6.3",
-    "@strapi/icons": "1.6.3",
+    "@strapi/design-system": "1.19.0",
+    "@strapi/icons": "1.19.0",
+    "@strapi/strapi": "^4.25.12",
+    "@strapi/types": "^4.25.12",
+    "@strapi/typescript-utils": "^4.25.12",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20.4.4",
-    "@types/react": "^17.0.53",
-    "@types/react-dom": "^18.0.28",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.26",
+    "@types/react": "^18.3.9",
+    "@types/react-dom": "*",
+    "@types/react-router-dom": "5.3.3",
     "babel-jest": "^29.7.0",
     "eslint": "^9.9.1",
     "eslint-plugin-react": "^7.35.0",
@@ -42,24 +43,24 @@
     "lint-staged": "^15.2.9",
     "msw": "^2.2.14",
     "prettier": "3.3.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "5.3.3",
     "resize-observer-polyfill": "^1.5.1",
-    "styled-components": "^5.3.6",
+    "styled-components": "^5.3.11",
     "ts-jest": "^29.1.2",
     "typescript": "5.0.4",
     "typescript-eslint": "^8.3.0",
     "undici": "^6.13.0"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.11.7",
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/icons": "^1.6.3",
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6"
+    "@strapi/design-system": "1.19.0",
+    "@strapi/icons": "1.19.0",
+    "@strapi/strapi": "^4.25.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "5.3.3",
+    "styled-components": "^5.3.11"
   },
   "author": {
     "name": "Juste BOCOVO"
@@ -102,7 +103,7 @@
     "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin.git"
   },
   "engines": {
-    "node": ">=14.19.1 <=18.x.x",
+    "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "scripts": {
@@ -111,5 +112,8 @@
     "test": "jest --collectCoverage",
     "prepare": "husky"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "@types/react": "18.3.9"
+  }
 }
