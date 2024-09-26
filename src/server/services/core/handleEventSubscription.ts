@@ -13,7 +13,8 @@ export const handleEventSubscription: SubscriberFn = async (event) => {
   }
 
   const collectionUid = event.model.uid;
-  const createdEntry = event.params.data;
+
+  const createdEntry = event.result || event.params.data;
 
   const relatedSubscriptions = await getSubscriptionsForCollection(
     collectionUid,
