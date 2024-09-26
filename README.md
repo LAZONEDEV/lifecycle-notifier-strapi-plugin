@@ -5,8 +5,8 @@ The Lifecycle Notifier Strapi plugin is designed to add a lifecycle notification
 ## Key Features
 
 - [x] **Instant Email Alerts**: Receive email notifications immediately when a new entry is added to any collection.
-- [ ] **Update Notifications**: Coming soon! Get notified when existing entries are modified.
-- [ ] **Deletion Alerts**: Coming soon! Be alerted whenever an entry is removed.
+- [x] **Update Notifications**: Coming soon! Get notified when existing entries are modified.
+- [x] **Deletion Alerts**: Coming soon! Be alerted whenever an entry is removed.
 - [x] **Customizable Email Templates**: Personalize your notification emails with flexible template options.
 - [x] **User-Friendly Configuration**: Easily set up and manage notifications through Strapi’s intuitive admin interface.
 
