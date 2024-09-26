@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Strapi } from "@strapi/types";
 import { SubscriptionEntry } from "../../common/types/index";
 
 export interface PluginConfigs {
@@ -32,10 +33,7 @@ export interface StrapiMedia {
 export interface Value {
   value: any;
 }
-export interface StrapiStore {
-  get(): Promise<any>;
-  set(value: Value): Promise<void>;
-}
+export type StrapiStore = ReturnType<Strapi["store"]>;
 
 export enum PluginStoreKeys {
   SETTINGS = "SETTINGS",
@@ -70,10 +68,4 @@ export interface Interceptor {
   callback: (
     entry: Record<string, any>
   ) => Promise<Record<string, any>> | undefined;
-}
-
-declare module "@strapi/database/lib/lifecycles" {
-  export interface Event {
-    result?: CollectionEntry & Record<string, unknown>;
-  }
 }

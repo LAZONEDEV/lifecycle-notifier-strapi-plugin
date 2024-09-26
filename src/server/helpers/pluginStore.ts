@@ -13,7 +13,7 @@ export const getPluginStore = (key: string): StrapiStore => {
 
 export const getFromStore = async (key: PluginStoreKeys) => {
   const store = getPluginStore(key);
-  const value = await store.get();
+  const value = await store.get({});
   return value;
 };
 

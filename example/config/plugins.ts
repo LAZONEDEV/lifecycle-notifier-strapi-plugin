@@ -12,6 +12,10 @@ const discoveredDateFormatterInterceptor = {
   },
 };
 
+const pluginDir = __dirname.includes("dist")
+  ? resolve(__dirname, "../../../")
+  : resolve(__dirname, "../../");
+
 export default ({ env }) => {
   return {
     // ...
@@ -49,7 +53,7 @@ export default ({ env }) => {
     },
     "lifecycle-notifier": {
       enabled: true,
-      resolve: resolve(__dirname, "../../.."),
+      resolve: pluginDir,
       config: {
         envRecipients: ["TEST_RECIPIENT_EMAIL"],
         defaultFrom: env("DEFAULT_MAIL_FROM"),
