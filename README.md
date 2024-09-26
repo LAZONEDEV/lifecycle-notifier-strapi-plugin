@@ -223,6 +223,10 @@ Example configuration
 The plugin use your email provider that your setup to send notifications.
 [Check how to setup email provider in Strapi](https://docs.strapi.io/cloud/advanced/email)
 
+## Contributing
+
+Read [more](./CONTRIBUTING.md)
+
 ## Contributions
 
 [@BOCOVO](https://github.com/BOCOVO) [@Valentino-Houessou](https://github.com/Valentino-Houessou) [@LewisYann](https://github.com/LewisYann) [@vladnacht](https://github.com/vladnacht) [@cliffordten](https://github.com/cliffordten)
