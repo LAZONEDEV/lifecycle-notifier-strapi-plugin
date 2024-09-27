@@ -2,7 +2,7 @@ import { subscriptionCollectionUid } from "../../../common/constants";
 import { SubscriptionEntry } from "../../../common/types";
 import { listenedCollection } from "../../constants/listenedCollection";
 import { getSubscriptionsForCollection } from "../../helpers/getSubsForCollection";
-import type { SubscriberFn } from "@strapi/database/lib/lifecycles/subscribers";
+import type { SubscriberFn } from "@strapi/database/dist/lifecycles";
 
 /**
  * This handle update the `listenedCollection` constant when update

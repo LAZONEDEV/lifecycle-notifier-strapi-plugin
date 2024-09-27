@@ -1,4 +1,4 @@
-import { Media } from "@strapi/strapi/lib/types/core/attributes";
+import { Media } from "@strapi/types/dist/types/core/attributes/media";
 import { MailAttachment, StrapiMedia } from "../types";
 import { fetchLocalMedia } from "../utils/fetchLocalMedia";
 import { getFileService } from "./getStrapiService";
