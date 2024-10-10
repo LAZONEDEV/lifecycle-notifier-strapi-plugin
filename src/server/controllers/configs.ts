@@ -1,8 +1,8 @@
-import { Strapi } from "@strapi/strapi";
+import { Core } from "@strapi/strapi";
 import pluginId from "../../common/utils/pluginId";
 import { ConfigServiceApi } from "../services/config";
 
-export default ({ strapi }: { strapi: Strapi }) => ({
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   envRecipients(ctx) {
     const service = strapi
       .plugin(pluginId)
