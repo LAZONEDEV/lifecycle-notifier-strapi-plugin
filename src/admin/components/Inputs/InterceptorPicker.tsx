@@ -1,7 +1,7 @@
 import React from "react";
-import SelectField from "./SelectField";
-import { FormFieldProps } from "../../types";
 import { useInterceptorsOptions } from "../../hooks/interceptors";
+import { FormFieldProps } from "../../types";
+import SelectField from "./SelectField";
 
 export interface InterceptorPickerProps extends FormFieldProps {}
 
@@ -13,7 +13,7 @@ export const InterceptorPicker = ({ name }: InterceptorPickerProps) => {
       getName={(item) => item.name}
       name={name}
       label="Interceptor to apply"
-      placeholder="Select a interceptor"
+      placeholder="Select an interceptor"
       options={options}
       multi
     />
