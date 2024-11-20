@@ -6,17 +6,7 @@
     "noEmit": true,
     "jsx": "react"
   },
+  "include": ["./jest/setup.ts", "src/**/*"],
 
-  "references": [
-    {
-      "path": "src/admin"
-    },
-    {
-      "path": "src/server"
-    }
-  ],
-
-  "include": ["./jest/setup.ts"],
-
-  "exclude": ["node_modules/", "dist/", "src/"]
+  "exclude": ["node_modules/", "dist/"]
 }
