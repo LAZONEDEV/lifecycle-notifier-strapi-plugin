@@ -19,10 +19,11 @@ const HomePage = () => {
   return (
     <Box>
       <Flex justifyContent="space-between" paddingTop={6} paddingLeft={10} paddingRight={10}>
-        <Flex direction="row" gap="4" alignItems="flex-start">
-          <Typography variant="alpha" fontWeight="bold">
-            Lifecycle Notifier
-          </Typography>
+        <Typography variant="alpha" fontWeight="bold">
+          Lifecycle Notifier
+        </Typography>
+
+        <Flex direction="row" gap="4" alignItems="center">
           <Button
             loading={loading}
             variant="tertiary"
@@ -31,10 +32,11 @@ const HomePage = () => {
           >
             Reload
           </Button>
+
+          <Button startIcon={<Plus />} onClick={() => setOpenModal(true)}>
+            Add new subscription
+          </Button>
         </Flex>
-        <Button startIcon={<Plus />} onClick={() => setOpenModal(true)}>
-          Add new subscription
-        </Button>
       </Flex>
       <SubscriptionList subList={subscriptions} loadSubs={reload} onEdit={setOnEditing} />
 
