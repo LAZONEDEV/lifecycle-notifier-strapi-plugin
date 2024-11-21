@@ -1,4 +1,5 @@
 import { Flex, Grid, Loader, Modal, Typography } from '@strapi/design-system';
+import { useAuth } from '@strapi/strapi/admin';
 import { Form, Formik } from 'formik';
 import { EventType, eventTypes } from '../../../common/config/eventType';
 import { SubscriptionEntry } from '../../../common/types';
@@ -31,13 +32,14 @@ const initialValues: Partial<SubscriptionEntry> = {
 };
 
 const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
-  const { collections, loading } = useCollections();
+  const token = useAuth('lifecycle-notifier-strapi-plugin', (state) => state.token!);
+  const { collections, loading } = useCollections(token);
 
   const onSubmit = async (values: SubscriptionEntry) => {
     if (editing) {
-      await SubscriptionService.update(editing.id, values);
+      await SubscriptionService.update(editing.id, values, token);
     } else {
-      await SubscriptionService.create(values);
+      await SubscriptionService.create(values, token);
     }
     onClose();
   };
@@ -62,11 +64,11 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
           >
             {({ submitForm, isSubmitting }) => (
               <>
-                <Modal.Body>
-                  <Form>
+                <Form>
+                  <Modal.Body>
                     <Grid.Root gap={4}>
                       <Grid.Item padding={1} col={12}>
-                        <InputField required name="subject" label="Subject" />
+                        <InputField required placeholder="Subject" name="subject" label="Subject" />
                       </Grid.Item>
 
                       <Grid.Item padding={1} col={6}>
@@ -133,15 +135,15 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         />
                       </Grid.Item>
                     </Grid.Root>
-                  </Form>
-                </Modal.Body>
+                  </Modal.Body>
 
-                <Footer
-                  isSubmitting={isSubmitting}
-                  onClose={onClose}
-                  submitForm={submitForm}
-                  editing={!!editing}
-                />
+                  <Footer
+                    isSubmitting={isSubmitting}
+                    onClose={onClose}
+                    submitForm={submitForm}
+                    editing={!!editing}
+                  />
+                </Form>
               </>
             )}
           </Formik>
