@@ -5,11 +5,13 @@ import { SubscriptionEntry } from '../common/types';
 import SubscriptionDialog from '../components/Dialogs/SubscriptionDialog/SubscriptionDialog';
 import SubscriptionList from '../components/SubscriptionList/SubscriptionList';
 import { useSubscriptions } from '../hooks/subscription';
+import { useAuth } from '@strapi/strapi/admin';
 
 const HomePage = () => {
   const [onEditing, setOnEditing] = useState<undefined | SubscriptionEntry>();
   const [openModal, setOpenModal] = useState(false);
-  const { subscriptions, loading, reload } = useSubscriptions();
+  const token = useAuth('lifecycle-notifier-strapi-plugin', (state) => state.token!);
+  const { subscriptions, loading, reload } = useSubscriptions(token);
 
   const closeModal = () => {
     setOpenModal(false);
