@@ -2,11 +2,14 @@ import { apiRoutes } from '../constants/apiRoutes';
 import { CollectionSchema, CollectionSchemaResult } from '../types';
 import fetchInstance from './fetchInstance';
 
-export const loadCollectionsSchemas = () => {
+export const loadCollectionsSchemas = (token: string) => {
   const controller = new AbortController();
 
   const result = fetchInstance.get<CollectionSchemaResult>(apiRoutes.contentTypes, {
     signal: controller.signal,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return [result, () => controller.abort()] as const;
