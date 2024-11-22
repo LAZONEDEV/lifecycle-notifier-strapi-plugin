@@ -12,6 +12,7 @@ import {
   VisuallyHidden,
 } from '@strapi/design-system';
 import { Pencil, Trash } from '@strapi/icons';
+import { useAuth } from '@strapi/strapi/admin';
 import { useState } from 'react';
 import { SubscriptionEntry } from '../../common/types/index';
 import { getCollectionNameFormUid } from '../../common/utils/getCollectionNameFormUid';
@@ -25,11 +26,12 @@ interface SubscriptionListProps {
 }
 
 export const SubscriptionList = ({ onEdit, loadSubs, subList }: SubscriptionListProps) => {
+  const token = useAuth('lifecycle-notifier-strapi-plugin', (state) => state.token!);
   const [toDelete, setToDelete] = useState<null | string>(null);
 
   const deleteSub = async () => {
     if (!toDelete) return;
-    SubscriptionService.delete(toDelete).then(() => {
+    SubscriptionService.delete(toDelete, token).then(() => {
       loadSubs();
     });
     setToDelete(null);
@@ -65,20 +67,24 @@ export const SubscriptionList = ({ onEdit, loadSubs, subList }: SubscriptionList
               <Td>
                 <Flex>
                   <IconButton
+                    withTooltip={false}
                     data-testid="edit-button"
                     onClick={() => onEdit(entry)}
                     label="Edit"
                     noBorder
-                    icon={<Pencil />}
-                  />
+                  >
+                    <Pencil />
+                  </IconButton>
                   <Box paddingLeft={1}>
                     <IconButton
+                      withTooltip={false}
                       data-testid="delete-button"
                       onClick={() => setToDelete(entry.id)}
                       label="Delete"
                       noBorder
-                      icon={<Trash />}
-                    />
+                    >
+                      <Trash />
+                    </IconButton>
                   </Box>
                 </Flex>
               </Td>

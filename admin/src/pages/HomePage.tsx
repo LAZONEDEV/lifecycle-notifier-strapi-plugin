@@ -5,11 +5,13 @@ import { SubscriptionEntry } from '../common/types';
 import SubscriptionDialog from '../components/Dialogs/SubscriptionDialog/SubscriptionDialog';
 import SubscriptionList from '../components/SubscriptionList/SubscriptionList';
 import { useSubscriptions } from '../hooks/subscription';
+import { useAuth } from '@strapi/strapi/admin';
 
 const HomePage = () => {
   const [onEditing, setOnEditing] = useState<undefined | SubscriptionEntry>();
   const [openModal, setOpenModal] = useState(false);
-  const { subscriptions, loading, reload } = useSubscriptions();
+  const token = useAuth('lifecycle-notifier-strapi-plugin', (state) => state.token!);
+  const { subscriptions, loading, reload } = useSubscriptions(token);
 
   const closeModal = () => {
     setOpenModal(false);
@@ -19,10 +21,11 @@ const HomePage = () => {
   return (
     <Box>
       <Flex justifyContent="space-between" paddingTop={6} paddingLeft={10} paddingRight={10}>
-        <Flex direction="row" gap="4" alignItems="flex-start">
-          <Typography variant="alpha" fontWeight="bold">
-            Lifecycle Notifier
-          </Typography>
+        <Typography variant="alpha" fontWeight="bold">
+          Lifecycle Notifier
+        </Typography>
+
+        <Flex direction="row" gap="4" alignItems="center">
           <Button
             loading={loading}
             variant="tertiary"
@@ -31,10 +34,11 @@ const HomePage = () => {
           >
             Reload
           </Button>
+
+          <Button startIcon={<Plus />} onClick={() => setOpenModal(true)}>
+            Add new subscription
+          </Button>
         </Flex>
-        <Button startIcon={<Plus />} onClick={() => setOpenModal(true)}>
-          Add new subscription
-        </Button>
       </Flex>
       <SubscriptionList subList={subscriptions} loadSubs={reload} onEdit={setOnEditing} />
 
