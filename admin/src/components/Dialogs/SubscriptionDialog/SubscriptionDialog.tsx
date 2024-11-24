@@ -67,11 +67,23 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                 <Form>
                   <Modal.Body>
                     <Grid.Root gap={4}>
-                      <Grid.Item padding={1} col={12}>
+                      <Grid.Item
+                        padding={1}
+                        col={12}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <InputField required placeholder="Subject" name="subject" label="Subject" />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={6}>
+                      <Grid.Item
+                        padding={1}
+                        col={6}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <SelectField<EventType>
                           required
                           name="eventType"
@@ -82,7 +94,13 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={6}>
+                      <Grid.Item
+                        padding={1}
+                        col={6}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <CollectionPicker
                           required
                           name="collectionName"
@@ -90,7 +108,13 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={6}>
+                      <Grid.Item
+                        padding={1}
+                        col={6}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <AttachableFilePicker
                           collectionFormName="collectionName"
                           name="mediaFields"
@@ -100,7 +124,13 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={6}>
+                      <Grid.Item
+                        padding={1}
+                        col={6}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <RecipientPicker
                           required
                           collectionFormName="collectionName"
@@ -111,7 +141,13 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={6}>
+                      <Grid.Item
+                        padding={1}
+                        col={6}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <RelationPicker
                           collectionFieldName="collectionName"
                           name="relations"
@@ -121,11 +157,23 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
                         />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={6}>
+                      <Grid.Item
+                        padding={1}
+                        col={6}
+                        xs={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <InterceptorPicker name="interceptors" />
                       </Grid.Item>
 
-                      <Grid.Item padding={1} col={12}>
+                      <Grid.Item
+                        padding={1}
+                        col={12}
+                        s={12}
+                        direction="column"
+                        alignItems="stretch"
+                      >
                         <TextareaField
                           required
                           label="Template"
