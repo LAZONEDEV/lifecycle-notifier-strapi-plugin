@@ -49,6 +49,9 @@ export const SubscriptionList = ({ onEdit, loadSubs, subList }: SubscriptionList
               <Typography variant="sigma">Collection name</Typography>
             </Th>
             <Th>
+              <Typography variant="sigma">Event type</Typography>
+            </Th>
+            <Th>
               <VisuallyHidden>Actions</VisuallyHidden>
             </Th>
           </Tr>
@@ -65,7 +68,10 @@ export const SubscriptionList = ({ onEdit, loadSubs, subList }: SubscriptionList
                 </Typography>
               </Td>
               <Td>
-                <Flex>
+                <Typography textColor="neutral800">{entry.eventType}</Typography>
+              </Td>
+              <Td>
+                <Flex justifyContent="flex-end">
                   <IconButton
                     withTooltip={false}
                     data-testid="edit-button"
