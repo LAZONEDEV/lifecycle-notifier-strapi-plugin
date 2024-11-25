@@ -88,6 +88,30 @@ class HTTPClient {
 
     return this.request<T>(url, options);
   }
+
+  async withAuthGet<T = any>(url: string, token: string): Promise<T | void> {
+    return this.get<T>(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  async withAuthPost<T = any, P = any>(url: string, token: string, data: P): Promise<T | void> {
+    return this.post<T, P>(url, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  async withAuthDelete<T = any>(url: string, token: string): Promise<T | void> {
+    return this.delete<T>(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  async withAuthPut<T = any, P = any>(url: string, token: string, data: P): Promise<T | void> {
+    return this.put<T, P>(url, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 export default HTTPClient;
