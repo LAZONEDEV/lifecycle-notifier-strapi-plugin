@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { InterceptorService } from '../services/Interceptor';
 import { InterceptorOptionType } from '../types';
+import useUserAuth from './auth';
 
 export const useInterceptorsOptions = () => {
+  const authToken = useUserAuth();
   const [options, setOptions] = useState<InterceptorOptionType[]>([]);
 
   const loadInterceptors = () => {
@@ -10,7 +12,7 @@ export const useInterceptorsOptions = () => {
 
     const fetchInterceptors = async () => {
       try {
-        const existingInterceptors = await InterceptorService.getInterceptors();
+        const existingInterceptors = await InterceptorService.getInterceptors(authToken);
         if (!ignore) {
           const interceptorsOptions = existingInterceptors.map((item) => ({
             name: item,

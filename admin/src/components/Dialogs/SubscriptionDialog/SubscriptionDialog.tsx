@@ -1,5 +1,4 @@
 import { Flex, Grid, Loader, Modal, Typography } from '@strapi/design-system';
-import { useAuth } from '@strapi/strapi/admin';
 import { Form, Formik } from 'formik';
 import { EventType, eventTypes } from '../../../common/config/eventType';
 import { SubscriptionEntry } from '../../../common/types';
@@ -15,6 +14,7 @@ import { RelationPicker } from '../../Inputs/RelationPicker';
 import SelectField from '../../Inputs/SelectField';
 import TextareaField from '../../Inputs/TextareaField';
 import Footer from './../SubscriptionDialog/Footer';
+import useUserAuth from '../../../hooks/auth';
 
 export interface SubscriptionDialogProps {
   onClose: () => void;
@@ -32,14 +32,14 @@ const initialValues: Partial<SubscriptionEntry> = {
 };
 
 const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
-  const token = useAuth('lifecycle-notifier-strapi-plugin', (state) => state.token!);
-  const { collections, loading } = useCollections(token);
+  const authToken = useUserAuth();
+  const { collections, loading } = useCollections(authToken);
 
   const onSubmit = async (values: SubscriptionEntry) => {
     if (editing) {
-      await SubscriptionService.update(editing.id, values, token);
+      await SubscriptionService.update(editing.id, values, authToken);
     } else {
-      await SubscriptionService.create(values, token);
+      await SubscriptionService.create(values, authToken);
     }
     onClose();
   };
