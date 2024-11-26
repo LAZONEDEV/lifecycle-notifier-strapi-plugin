@@ -37,7 +37,7 @@ const SubscriptionDialog = ({ onClose, editing }: SubscriptionDialogProps) => {
 
   const onSubmit = async (values: SubscriptionEntry) => {
     if (editing) {
-      await SubscriptionService.update(editing.id, values, authToken);
+      await SubscriptionService.update(editing.documentId, values, authToken);
     } else {
       await SubscriptionService.create(values, authToken);
     }

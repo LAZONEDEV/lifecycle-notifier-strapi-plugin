@@ -7,6 +7,7 @@ export interface RecipientOptionType {
 
 export interface SubscriptionEntry {
   id: string;
+  documentId: string;
   subject: string;
   collectionName: string;
   eventType: EventType;

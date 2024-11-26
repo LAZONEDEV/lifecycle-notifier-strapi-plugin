@@ -50,12 +50,12 @@ class HTTPClient {
     reqOptions: RequestInit = {}
   ): Promise<T | void> {
     const options: RequestInit = {
+      ...reqOptions,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...reqOptions.headers,
       },
-      ...reqOptions,
       body: JSON.stringify(data),
     };
 
@@ -68,12 +68,12 @@ class HTTPClient {
     reqOptions: RequestInit = {}
   ): Promise<T | void> {
     const options: RequestInit = {
+      ...reqOptions,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         ...reqOptions.headers,
       },
-      ...reqOptions,
       body: JSON.stringify(data),
     };
 
