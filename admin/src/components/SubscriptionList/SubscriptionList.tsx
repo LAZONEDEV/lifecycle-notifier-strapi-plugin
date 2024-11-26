@@ -85,7 +85,7 @@ export const SubscriptionList = ({ onEdit, loadSubs, subList }: SubscriptionList
                     <IconButton
                       withTooltip={false}
                       data-testid="delete-button"
-                      onClick={() => setToDelete(entry.id)}
+                      onClick={() => setToDelete(entry.documentId)}
                       label="Delete"
                       noBorder
                     >

@@ -13,8 +13,12 @@ const DeleteSubscriptionDialog = ({
   onCancel,
 }: DeleteSubscriptionDialogProps) => {
   return (
-    <Dialog.Root data-testid="dialog" onClose={onCancel} title="Confirmation" isOpen={isVisible}>
+    <Dialog.Root data-testid="dialog" onClose={onCancel} open={isVisible}>
       <Dialog.Content>
+        <Dialog.Header>
+          <Typography>Confirmation</Typography>
+        </Dialog.Header>
+
         <Dialog.Body icon={<WarningCircle />}>
           <Flex direction="column" alignItems="center" gap={2}>
             <Flex justifyContent="center">
