@@ -1,7 +1,7 @@
-import { renderHook, act } from '@testing-library/react';
-import { useSubscriptions } from '../subscription';
+import { act, renderHook } from '@testing-library/react';
 import { SubscriptionService } from '../../services/Subscription';
 import { resolveWithDelay } from '../../testUtils/resolveWithDelay';
+import { useSubscriptions } from '../subscription';
 
 jest.mock('../../services/Subscription', () => ({
   SubscriptionService: {
@@ -14,6 +14,8 @@ const waitingTime = 2000;
 // wait for 2 seconds before resolving
 // to be able to checked if the loading state
 const mockResponsePromise = resolveWithDelay(waitingTime, mockSubscriptions);
+
+const mockToken = 'test-token';
 
 describe('test suite for useSubscriptions hook', () => {
   afterEach(() => {
@@ -28,7 +30,7 @@ describe('test suite for useSubscriptions hook', () => {
     };
 
     await act(async () => {
-      const renderResult = renderHook(() => useSubscriptions());
+      const renderResult = renderHook(() => useSubscriptions(mockToken));
       result = renderResult.result;
     });
 
@@ -44,7 +46,7 @@ describe('test suite for useSubscriptions hook', () => {
     };
 
     await act(async () => {
-      const renderResult = renderHook(() => useSubscriptions());
+      const renderResult = renderHook(() => useSubscriptions(mockToken));
       result = renderResult.result;
     });
 
@@ -56,7 +58,7 @@ describe('test suite for useSubscriptions hook', () => {
   it('should refresh when reload function is called', async () => {
     (SubscriptionService.get as jest.Mock).mockResolvedValueOnce([]);
 
-    const { result } = renderHook(() => useSubscriptions());
+    const { result } = renderHook(() => useSubscriptions(mockToken));
 
     expect(result.current.subscriptions).toEqual([]);
 

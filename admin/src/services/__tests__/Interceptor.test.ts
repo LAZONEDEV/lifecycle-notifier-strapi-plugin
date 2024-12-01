@@ -1,10 +1,15 @@
-import { InterceptorService } from '../Interceptor';
-import fetchInstance from '../../utils/fetchInstance';
 import { apiRoutes } from '../../constants/apiRoutes';
+import fetchInstance from '../../utils/fetchInstance';
+import { InterceptorService } from '../Interceptor';
 
 jest.mock('../../utils/fetchInstance', () => ({
-  get: jest.fn(),
+  __esModule: true,
+  default: {
+    withAuthGet: jest.fn(),
+  },
 }));
+
+const mockToken = 'test-token';
 
 describe('test suite for InterceptorService', () => {
   afterEach(() => {
@@ -13,11 +18,11 @@ describe('test suite for InterceptorService', () => {
 
   it('should get interceptors with API call', async () => {
     const mockResult = ['interceptor1', 'interceptor2'];
-    (fetchInstance.get as jest.Mock).mockResolvedValueOnce(mockResult);
+    (fetchInstance.withAuthGet as jest.Mock).mockResolvedValueOnce(mockResult);
 
-    const result = await InterceptorService.getInterceptors();
+    const result = await InterceptorService.getInterceptors(mockToken);
 
-    expect(fetchInstance.get).toHaveBeenCalledWith(apiRoutes.pluginInterceptors);
+    expect(fetchInstance.withAuthGet).toHaveBeenCalledWith(apiRoutes.pluginInterceptors, mockToken);
     expect(result).toEqual(mockResult);
   });
 });

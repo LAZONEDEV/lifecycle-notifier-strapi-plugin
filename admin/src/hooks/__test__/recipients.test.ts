@@ -1,7 +1,7 @@
-import { renderHook, act } from '@testing-library/react';
-import { useRecipients } from '../recipients';
+import { act, renderHook } from '@testing-library/react';
+import { RecipientType } from '../../common/enums';
 import { ConfigService } from '../../services/Config';
-import { RecipientType } from '../../../common/enums';
+import { useRecipients } from '../recipients';
 
 jest.mock('../../services/Config', () => ({
   ConfigService: {

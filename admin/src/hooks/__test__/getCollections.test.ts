@@ -1,7 +1,7 @@
-import { renderHook, act } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { resolveWithDelay } from '../../testUtils/resolveWithDelay';
-import { loadCollectionsSchemas, filterApiCollection } from '../../utils/loadCollections';
 import { CollectionSchema } from '../../types';
+import { filterApiCollection, loadCollectionsSchemas } from '../../utils/loadCollections';
 import { useCollections } from '../getCollections';
 
 const mockedCollections = [
@@ -22,6 +22,7 @@ const waitingTime = 2000;
 // wait for 2 seconds before resolving
 // to be able to checked if the loading state has changed
 const mockResponsePromise = resolveWithDelay(waitingTime, mockedCollections);
+const mockToken = 'test-token';
 
 describe('test suite for useCollections hook', () => {
   afterEach(() => {
@@ -36,7 +37,7 @@ describe('test suite for useCollections hook', () => {
     };
 
     await act(async () => {
-      const renderResult = renderHook(() => useCollections());
+      const renderResult = renderHook(() => useCollections(mockToken));
       result = renderResult.result;
     });
 
@@ -53,7 +54,7 @@ describe('test suite for useCollections hook', () => {
     };
 
     await act(async () => {
-      const renderResult = renderHook(() => useCollections());
+      const renderResult = renderHook(() => useCollections(mockToken));
       result = renderResult.result;
     });
 
@@ -68,7 +69,7 @@ describe('test suite for useCollections hook', () => {
     (loadCollectionsSchemas as jest.Mock).mockReturnValue([requestMock(), cancelRequest]);
     (filterApiCollection as jest.Mock).mockReturnValue(mockedCollections);
 
-    const { unmount } = renderHook(() => useCollections());
+    const { unmount } = renderHook(() => useCollections(mockToken));
     // unmount the component to cancel the request
     unmount?.()!;
 

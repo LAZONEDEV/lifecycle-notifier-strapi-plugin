@@ -1,6 +1,6 @@
-import { renderHook, act } from '@testing-library/react';
-import { useInterceptorsOptions } from '../interceptors';
+import { act, renderHook } from '@testing-library/react';
 import { InterceptorService } from '../../services/Interceptor';
+import { useInterceptorsOptions } from '../interceptors';
 
 jest.mock('../../services/Interceptor', () => ({
   InterceptorService: {
