@@ -1,13 +1,18 @@
-import { SubscriptionService } from '../Subscription';
+import { SubscriptionEntry } from '../../common/types';
 import instance from '../../utils/fetchInstance';
-import { SubscriptionEntry } from '../../../common/types';
+import { SubscriptionService } from '../Subscription';
 
 jest.mock('../../utils/fetchInstance', () => ({
-  get: jest.fn(),
-  post: jest.fn(),
-  delete: jest.fn(),
-  put: jest.fn(),
+  __esModule: true,
+  default: {
+    withAuthGet: jest.fn(),
+    withAuthPost: jest.fn(),
+    withAuthDelete: jest.fn(),
+    withAuthPut: jest.fn(),
+  },
 }));
+
+const mockToken = 'test-token';
 
 describe('suite test for Subscription service', () => {
   afterEach(() => {
@@ -20,31 +25,38 @@ describe('suite test for Subscription service', () => {
 
   it('should get subscriptions with API call', async () => {
     const mockResult = { results: [mockSubscriptionEntry] };
-    (instance.get as jest.Mock).mockResolvedValueOnce(mockResult);
+    (instance.withAuthGet as jest.Mock).mockResolvedValueOnce(mockResult);
 
-    const result = await SubscriptionService.get();
+    const result = await SubscriptionService.get(mockToken);
 
-    expect(instance.get).toHaveBeenCalledWith(SubscriptionService.baseUrl);
+    expect(instance.withAuthGet).toHaveBeenCalledWith(SubscriptionService.baseUrl, mockToken);
     expect(result).toEqual([mockSubscriptionEntry]);
   });
 
   it('should create a subscription with API call', async () => {
-    (instance.post as jest.Mock).mockResolvedValueOnce(mockSubscriptionEntry);
+    (instance.withAuthPost as jest.Mock).mockResolvedValueOnce(mockSubscriptionEntry);
 
-    const result = await SubscriptionService.create(mockSubscriptionEntry);
+    const result = await SubscriptionService.create(mockSubscriptionEntry, mockToken);
 
-    expect(instance.post).toHaveBeenCalledWith(SubscriptionService.baseUrl, mockSubscriptionEntry);
+    expect(instance.withAuthPost).toHaveBeenCalledWith(
+      SubscriptionService.baseUrl,
+      mockToken,
+      mockSubscriptionEntry
+    );
     expect(result).toEqual(mockSubscriptionEntry);
   });
 
   it('should delete a subscription with API call', async () => {
     const id = '1';
     const mockDeleteResult = { data: 'deleted' };
-    (instance.delete as jest.Mock).mockResolvedValueOnce(mockDeleteResult);
+    (instance.withAuthDelete as jest.Mock).mockResolvedValueOnce(mockDeleteResult);
 
-    const result = await SubscriptionService.delete(id);
+    const result = await SubscriptionService.delete(id, mockToken);
 
-    expect(instance.delete).toHaveBeenCalledWith(`${SubscriptionService.baseUrl}/${id}`);
+    expect(instance.withAuthDelete).toHaveBeenCalledWith(
+      `${SubscriptionService.baseUrl}/${id}`,
+      mockToken
+    );
     expect(result).toEqual('deleted');
   });
 
@@ -52,12 +64,13 @@ describe('suite test for Subscription service', () => {
     const id = '1';
     const mockUpdateData = {} as Omit<SubscriptionEntry, 'id'>;
     const mockUpdateResult = { data: 'updated' };
-    (instance.put as jest.Mock).mockResolvedValueOnce(mockUpdateResult);
+    (instance.withAuthPut as jest.Mock).mockResolvedValueOnce(mockUpdateResult);
 
-    const result = await SubscriptionService.update(id, mockUpdateData);
+    const result = await SubscriptionService.update(id, mockUpdateData, mockToken);
 
-    expect(instance.put).toHaveBeenCalledWith(
+    expect(instance.withAuthPut).toHaveBeenCalledWith(
       `${SubscriptionService.baseUrl}/${id}`,
+      mockToken,
       mockUpdateData
     );
     expect(result).toEqual('updated');
