@@ -1,26 +1,70 @@
 {
-  "version": "0.0.0",
+  "name": "lifecycle-notifier",
+  "version": "1.2.1",
+  "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
   "keywords": [],
+  "homepage": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin",
+  "bugs": {
+    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Juste BOCOVO"
+  },
+  "maintainers": [
+    {
+      "name": "LA ZONE",
+      "url": "https://www.la-zone.io",
+      "email": "admin@la-zone.io"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Juste BOCOVO",
+      "url": "https://github.com/BOCOVO"
+    },
+    {
+      "name": "Valentino Houessou",
+      "url": "https://github.com/Valentino-Houessou"
+    },
+    {
+      "name": "Lewis ALLEDJI",
+      "url": "https://github.com/LewisYann"
+    },
+    {
+      "name": "NASSIROU Kamal Dyne",
+      "url": "https://github.com/vladnacht"
+    },
+    {
+      "name": "Teneng Clifford",
+      "url": "https://github.com/cliffordten"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin.git"
+  },
   "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
     "./strapi-admin": {
       "types": "./dist/admin/src/index.d.ts",
-      "source": "./admin/src/index.ts",
+      "source": "./src/admin/src/index.ts",
       "import": "./dist/admin/index.mjs",
       "require": "./dist/admin/index.js",
       "default": "./dist/admin/index.js"
     },
     "./strapi-server": {
       "types": "./dist/server/src/index.d.ts",
-      "source": "./server/src/index.ts",
+      "source": "./src/server/src/index.ts",
       "import": "./dist/server/index.mjs",
       "require": "./dist/server/index.js",
       "default": "./dist/server/index.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "strapi-plugin build",
@@ -65,22 +109,14 @@
     "react-router-dom": "^6.27.0",
     "styled-components": "^6.1.13"
   },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
   "strapi": {
+    "name": "lifecycle-notifier",
+    "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
     "kind": "plugin",
-    "name": "lifecycle-notifier-strapi-plugin",
-    "displayName": "Lifecycle Notifier",
-    "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates."
-  },
-  "name": "lifecycle-notifier-strapi-plugin",
-  "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com//BOCOVO.git"
-  },
-  "bugs": {
-    "url": "https://github.com//BOCOVO/issues"
-  },
-  "homepage": "https://github.com//BOCOVO#readme",
-  "author": "Juste BOCOVO <vladnacht@gmail.com>"
+    "displayName": "Lifecycle notifier"
+  }
 }
