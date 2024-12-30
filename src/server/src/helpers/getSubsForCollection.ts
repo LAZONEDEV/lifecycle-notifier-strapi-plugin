@@ -1,3 +1,4 @@
+import { UID } from '@strapi/strapi';
 import { subscriptionCollectionUid } from '../common/constants';
 import { EventType } from '../common/enums';
 import { SubscriptionEntry } from '../common/types';
@@ -15,5 +16,5 @@ export const getSubscriptionsForCollection = async (
     filterQuery.eventType = action;
   }
 
-  return await strapi.db.query(subscriptionCollectionUid).findMany({ where: filterQuery });
+  return await strapi.documents(subscriptionCollectionUid as UID.ContentType).findMany({ filters: filterQuery }) as SubscriptionEntry[];
 };
