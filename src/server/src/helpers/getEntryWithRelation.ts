@@ -14,7 +14,7 @@ export const getEntryWithRelation = async (
     }
 
     const entryWithRelation = await collectionEM.findOne({
-      where: { id: entry.id },
+      documentId: entry.id,
       populate: relationsToPopulate,
     });
 
