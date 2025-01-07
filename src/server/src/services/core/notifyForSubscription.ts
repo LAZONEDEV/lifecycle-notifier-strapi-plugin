@@ -1,12 +1,8 @@
-import { SubscriptionEntry } from '../../../../common/types';
 import { getEntryWithRelation } from '../../helpers/getEntryWithRelation';
 import { notify } from '../../helpers/notify';
 import { CollectionEntry } from '../../types';
 
-export const notifyForSubscription = async (
-  subscription: SubscriptionEntry,
-  entry: CollectionEntry
-) => {
+export const notifyForSubscription = async (subscription, entry: CollectionEntry) => {
   try {
     const relationsToPopulate = [
       ...(subscription.relations ? subscription.relations : []),

@@ -11,7 +11,7 @@ export enum RecipientType {
 }
 
 export enum EventType {
-  AfterCreate = 'afterCreate',
-  AfterUpdate = 'afterUpdate',
-  AfterDelete = 'afterDelete',
+  AfterCreate = 'create',
+  AfterUpdate = 'update',
+  AfterDelete = 'delete',
 }

@@ -1,9 +1,9 @@
 import { subscriptionCollectionUid } from '../../../common/constants';
 import { getStrapi } from './getStrapi';
 
-export const getCollectionEntityManager = (collectionUid: string) => {
+export const getCollectionEntityManager = (collectionUid) => {
   const strapi = getStrapi();
-  return strapi.db.query(collectionUid);
+  return strapi.documents(collectionUid);
 };
 
 export const getSubscriptionEntityManager = () => {
