@@ -1,5 +1,6 @@
-import { loadExistingSubscriptions } from './services/core/loadExistingSubscriptions';
-import { updateListenedCollectionOnChangeOnSubsCollection } from './services/core/updateListenedCollectionSet';
+import { loadSubsFromPluginConfig } from "./helpers/loadSubsFromPluginConfig";
+import { loadExistingSubscriptions } from "./services/core/loadExistingSubscriptions";
+import { updateListenedCollectionOnChangeOnSubsCollection } from "./services/core/updateListenedCollectionSet";
 
 export default () => {
   strapi.documents.use(async (context, next) => {
@@ -11,6 +12,7 @@ export default () => {
   strapi.documents.use(async (_, next) => {
     const result = await next();
     await loadExistingSubscriptions();
+    loadSubsFromPluginConfig();
     return result;
   });
 };

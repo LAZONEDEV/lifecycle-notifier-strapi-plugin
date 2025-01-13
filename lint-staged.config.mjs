@@ -1,18 +1,13 @@
-import path from "path";
-
 export default {
   // Type check TypeScript files
-  "**/*.(ts|tsx)": () => "yarn tsc --noEmit",
+  "**/*.(ts|tsx)": () => "tsc --noEmit",
 
   // Lint then format TypeScript and JavaScript files
   "**/*.(ts|tsx|js)": (filenames) => [
-    `next lint --fix --file ${filenames
-      .map((f) => path.relative(process.cwd(), f))
-      .join(" --file ")}`,
-    `yarn prettier --write ${filenames.join(" ")}`,
+    `eslint --fix ${filenames.join(" ")}`,
+    `prettier --write ${filenames.join(" ")}`,
   ],
 
   // Format MarkDown and JSON
-  "**/*.(md|json)": (filenames) =>
-    `yarn prettier --write ${filenames.join(" ")}`,
+  "**/*.(md|json)": (filenames) => `prettier --write ${filenames.join(" ")}`,
 };

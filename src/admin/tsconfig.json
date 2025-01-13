@@ -1,8 +1,20 @@
 {
-  "extends": "@strapi/typescript-utils/tsconfigs/admin",
-  "include": ["./src", "./custom.d.ts", "../common"],
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "../",
-    "baseUrl": "."
-  }
+    "composite": true,
+    "declarationMap": true,
+    "declaration": true,
+    "rootDir": "..",
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "emitDeclarationOnly": false
+  },
+  "include": ["./src", "../common"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/__tests__"
+  ]
 }

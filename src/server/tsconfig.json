@@ -2,7 +2,9 @@
   "extends": "@strapi/typescript-utils/tsconfigs/server",
   "include": ["./src", "../common"],
   "compilerOptions": {
-    "rootDir": "../",
-    "baseUrl": "."
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "..",
+    "composite": true
   }
 }
