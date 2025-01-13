@@ -3,20 +3,26 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "noEmit": true,
-    "jsx": "react"
-  },
-
-  "references": [
-    {
-      "path": "src/admin"
-    },
-    {
-      "path": "src/server"
+    "noEmit": false,
+    "jsx": "react",
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "declaration": true,
+    "module": "esnext",
+    "target": "es2019",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "admin/*": ["src/admin/src/*"],
+      "server/*": ["src/server/src/*"],
+      "common/*": ["src/common/*"]
     }
+  },
+  "references": [
+    { "path": "./src/admin" },
+    { "path": "./src/server" }
   ],
-
-  "include": ["./jest/setup.ts"],
-
-  "exclude": ["node_modules/", "dist/", "src/"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules/", "dist/"]
 }

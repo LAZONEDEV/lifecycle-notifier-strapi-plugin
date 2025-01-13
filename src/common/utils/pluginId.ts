@@ -1,3 +1,3 @@
-const pluginId = "lifecycle-notifier";
+const pluginId = 'lifecycle-notifier';
 
 export default pluginId;

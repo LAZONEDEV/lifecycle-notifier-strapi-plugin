@@ -1,4 +1,4 @@
-import { EventType, RecipientType } from "../enums/index";
+import { EventType, RecipientType } from '../enums/index';
 
 export interface RecipientOptionType {
   type: RecipientType;

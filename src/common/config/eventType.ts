@@ -1,11 +1,11 @@
-import { EventType as Event} from "../enums/index";
+import { EventType as Event } from '../enums/index';
 
 export interface EventType {
   name: string;
-  value: Event
+  value: Event;
 }
 
-export const eventTypes = Object.values(Event).map<EventType>(event => ({
+export const eventTypes = Object.values(Event).map<EventType>((event) => ({
   name: event,
-  value: event
-}))
+  value: event,
+}));
