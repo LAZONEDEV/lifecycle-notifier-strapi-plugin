@@ -60,7 +60,7 @@ export default ({ env }) => {
         subscriptions: [
           {
             collectionName: "api::planet.planet",
-            eventType: "afterCreate",
+            eventType: "create",
             recipients: [
               {
                 type: "FROM_THE_ENTRY_RELATION",
@@ -76,7 +76,7 @@ export default ({ env }) => {
           },
           {
             collectionName: "api::planet.planet",
-            eventType: "afterUpdate",
+            eventType: "update",
             recipients: [
               {
                 type: "FROM_THE_ENTRY_RELATION",
@@ -92,7 +92,7 @@ export default ({ env }) => {
           },
           {
             collectionName: "api::planet.planet",
-            eventType: "afterDelete",
+            eventType: "delete",
             recipients: [
               {
                 type: "FROM_THE_ENTRY_RELATION",

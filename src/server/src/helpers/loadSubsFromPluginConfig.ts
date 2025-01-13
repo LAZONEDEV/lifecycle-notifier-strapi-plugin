@@ -1,11 +1,12 @@
-import { validate } from 'jsonschema';
-import { SubscriptionEntry } from '../../../common/types';
-import pluginId from '../../../common/utils/pluginId';
-import { ConfigKeys, PluginStoreKeys } from '../types';
-import { subscriptionsSchema } from '../utils/configValidator';
-import { getPluginConfig } from './getPluginConfig';
-import { insertSubscription } from './insertSubscription';
-import { getFromStore, saveInStore } from './pluginStore';
+import { validate } from "jsonschema";
+import { SubscriptionEntry } from "../../../common/types";
+import pluginId from "../../../common/utils/pluginId";
+import { ConfigKeys, PluginStoreKeys } from "../types";
+import { subscriptionsSchema } from "../utils/configValidator";
+import checkExistingSubs from "./checkExistingSubs";
+import { getPluginConfig } from "./getPluginConfig";
+import { insertSubscription } from "./insertSubscription";
+import { getFromStore, saveInStore } from "./pluginStore";
 
 export const loadSubsFromPluginConfig = async () => {
   const subs = getPluginConfig(ConfigKeys.SUBSCRIPTIONS);
@@ -19,7 +20,6 @@ export const loadSubsFromPluginConfig = async () => {
   }
 
   const validationResult = validate(subs, subscriptionsSchema);
-
   if (validationResult.errors.length) {
     console.error(`
     The subscriptions you provided in the ${pluginId} configs fail validation, errors are below:
@@ -30,7 +30,10 @@ export const loadSubsFromPluginConfig = async () => {
 
   try {
     for (const subscription of subs as SubscriptionEntry[]) {
-      await insertSubscription(subscription);
+      const alreadyExists = await checkExistingSubs(subscription);
+      if (!alreadyExists) {
+        await insertSubscription(subscription);
+      }
     }
     await saveInStore(PluginStoreKeys.POPULATED, true);
   } catch (error) {

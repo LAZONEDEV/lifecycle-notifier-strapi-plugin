@@ -3,9 +3,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "noEmit": false,
     "jsx": "react",
-    "outDir": "./dist",
     "baseUrl": ".",
     "declaration": true,
     "module": "esnext",
@@ -19,10 +17,7 @@
       "common/*": ["src/common/*"]
     }
   },
-  "references": [
-    { "path": "./src/admin" },
-    { "path": "./src/server" }
-  ],
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules/", "dist/"]
+  "references": [{ "path": "./src/admin" }, { "path": "./src/server" }],
+  "files": [],
+  "include": []
 }
