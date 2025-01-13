@@ -82,24 +82,24 @@
     "react-intl": "^6.8.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.15.0",
+    "@eslint/js": "^9.17.0",
     "@strapi/sdk-plugin": "^5.2.7",
     "@strapi/strapi": "^5.0.6",
     "@strapi/typescript-utils": "^5.0.6",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
-    "eslint": "^9.15.0",
-    "eslint-plugin-react": "^7.37.2",
-    "globals": "^15.12.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.3",
+    "globals": "^15.14.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.9",
-    "prettier": "^3.3.3",
+    "lint-staged": "^15.3.0",
+    "prettier": "3.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
     "styled-components": "^6.1.13",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.15.0"
+    "typescript-eslint": "^8.19.1"
   },
   "peerDependencies": {
     "@strapi/sdk-plugin": "^5.2.7",

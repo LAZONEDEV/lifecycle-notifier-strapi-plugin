@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Core } from '@strapi/types';
+import { ContentTypeSchema } from '@strapi/types/dist/struct';
 import { SubscriptionEntry } from '../../../common/types/index';
 
 export interface PluginConfigs {
@@ -60,10 +61,25 @@ export interface MailOptions {
 }
 
 export interface CollectionEntry {
+  documentId: string;
   id: string;
+  name: string;
+  email: string;
+  config: string;
+  by: Record<string, any>;
+  discoveryDate: string;
+  createdBy: number;
+  updatedBy: number;
 }
 
 export interface Interceptor {
   name: string;
   callback: (entry: Record<string, any>) => Promise<Record<string, any>> | undefined;
+}
+
+export interface Context {
+  action: string;
+  contentType: ContentTypeSchema;
+  params: Record<string, any>;
+  uid: string;
 }

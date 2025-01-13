@@ -1,5 +1,5 @@
-import { getCollectionEntityManager } from './getEntityManager';
 import { CollectionEntry } from '../types';
+import { getCollectionEntityManager } from './getEntityManager';
 
 export const getEntryWithRelation = async (
   collectionUid: string,
@@ -14,12 +14,14 @@ export const getEntryWithRelation = async (
     }
 
     const entryWithRelation = await collectionEM.findOne({
-      where: { id: entry.id },
+      documentId: entry.documentId,
       populate: relationsToPopulate,
     });
 
     if (!entryWithRelation) {
-      console.error(`Failed to find entry with id ${entry.id} in collection ${collectionUid}`);
+      console.error(
+        `Failed to find entry with id ${entry.documentId} in collection ${collectionUid}`
+      );
     }
 
     return entryWithRelation;

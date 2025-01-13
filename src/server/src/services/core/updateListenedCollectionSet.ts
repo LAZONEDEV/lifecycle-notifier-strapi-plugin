@@ -1,8 +1,8 @@
-import type { SubscriberFn } from '@strapi/database/dist/lifecycles';
 import { subscriptionCollectionUid } from '../../../../common/constants';
 import { SubscriptionEntry } from '../../../../common/types';
 import { listenedCollection } from '../../constants/listenedCollection';
 import { getSubscriptionsForCollection } from '../../helpers/getSubsForCollection';
+import { Context } from '../../types';
 
 /**
  * This handle update the `listenedCollection` constant when update
@@ -12,13 +12,13 @@ import { getSubscriptionsForCollection } from '../../helpers/getSubsForCollectio
  * @param event Event
  * @returns void
  */
-export const updateListenedCollectionOnChangeOnSubsCollection: SubscriberFn = async (event) => {
-  const isModifyingEvent = ['beforeCreate', 'afterDelete'].includes(event.action);
+export const updateListenedCollectionOnChangeOnSubsCollection = async (event: Context) => {
+  const isModifyingEvent = ['create', 'delete'].includes(event.action);
   if (!isModifyingEvent) {
     return;
   }
 
-  const isSubscriptionCollection = event.model.uid === subscriptionCollectionUid;
+  const isSubscriptionCollection = event.uid === subscriptionCollectionUid;
   if (!isSubscriptionCollection) {
     return;
   }
@@ -27,7 +27,7 @@ export const updateListenedCollectionOnChangeOnSubsCollection: SubscriberFn = as
 
   if (!collectionName) return;
 
-  if (event.action === 'afterDelete') {
+  if (event.action === 'delete') {
     const existing = await getSubscriptionsForCollection(collectionName);
     if (!existing.length) {
       listenedCollection.delete(collectionName);
