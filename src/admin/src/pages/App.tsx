@@ -1,9 +1,9 @@
-import { Page } from '@strapi/strapi/admin';
-import { Route, Routes } from 'react-router-dom';
+import React from "react";
+import { Page } from "@strapi/strapi/admin";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./HomePage";
 
-import HomePage from './HomePage';
-
-const App = () => {
+const App: React.FC = () => {
   return (
     <Routes>
       <Route index element={<HomePage />} />
@@ -13,3 +13,4 @@ const App = () => {
 };
 
 export { App };
+export default App;

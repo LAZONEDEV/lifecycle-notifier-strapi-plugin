@@ -1,16 +1,24 @@
-import { Box, Button, Flex, Typography } from '@strapi/design-system';
-import { ArrowClockwise, Plus } from '@strapi/icons';
-import { useAuth } from '@strapi/strapi/admin';
-import { useState } from 'react';
-import { SubscriptionEntry } from '../../../common/types';
-import SubscriptionDialog from '../components/Dialogs/SubscriptionDialog/SubscriptionDialog';
-import SubscriptionList from '../components/SubscriptionList/SubscriptionList';
-import { useSubscriptions } from '../hooks/subscription';
+import React from "react";
+import { Box, Button, Flex, Typography } from "@strapi/design-system";
+import { ArrowClockwise, Plus } from "@strapi/icons";
+import { Page } from "@strapi/strapi/admin";
+import { useState } from "react";
+import { SubscriptionEntry } from "../../../common/types";
+import SubscriptionDialog from "../components/Dialogs/SubscriptionDialog/SubscriptionDialog";
+import SubscriptionList from "../components/SubscriptionList/SubscriptionList";
+import { useSubscriptions } from "../hooks/subscription";
+import pluginPermissions from "../permissions";
+
+const ProtectedHomePage = () => (
+  <Page.Protect permissions={[pluginPermissions.mainRead]}>
+    <HomePage />
+  </Page.Protect>
+);
 
 const HomePage = () => {
   const [onEditing, setOnEditing] = useState<undefined | SubscriptionEntry>();
   const [openModal, setOpenModal] = useState(false);
-  const token = useAuth('lifecycle-notifier-strapi-plugin', (state) => state.token!);
+  const token = "";
   const { subscriptions, loading, reload } = useSubscriptions(token);
 
   const closeModal = () => {
@@ -20,7 +28,12 @@ const HomePage = () => {
 
   return (
     <Box>
-      <Flex justifyContent="space-between" paddingTop={6} paddingLeft={10} paddingRight={10}>
+      <Flex
+        justifyContent="space-between"
+        paddingTop={6}
+        paddingLeft={10}
+        paddingRight={10}
+      >
         <Typography variant="alpha" fontWeight="bold">
           Lifecycle Notifier
         </Typography>
@@ -40,7 +53,11 @@ const HomePage = () => {
           </Button>
         </Flex>
       </Flex>
-      <SubscriptionList subList={subscriptions} loadSubs={reload} onEdit={setOnEditing} />
+      <SubscriptionList
+        subList={subscriptions}
+        loadSubs={reload}
+        onEdit={setOnEditing}
+      />
 
       {openModal || onEditing ? (
         <SubscriptionDialog editing={onEditing} onClose={closeModal} />
@@ -49,4 +66,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ProtectedHomePage;
