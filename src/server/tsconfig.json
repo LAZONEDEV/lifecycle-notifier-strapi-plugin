@@ -1,23 +1,10 @@
 {
-  "extends": ["@strapi/typescript-utils/tsconfigs/server"],
-
+  "extends": "@strapi/typescript-utils/tsconfigs/server",
+  "include": ["./src", "../common"],
   "compilerOptions": {
-    "rootDir": "../",
-    "outDir": "../../dist/server",
-    "composite": true,
-    "noEmit": false
-  },
-
-  "include": [
-    // Include the root directory
-    "./",
-    "../common/**/*",
-    "global.d.ts"
-  ],
-
-  "exclude": [
-    "node_modules",
-    "**/__tests__/**/*",
-    "**/__test__/**/*"
-  ]
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "rootDir": "..",
+    "composite": true
+  }
 }
