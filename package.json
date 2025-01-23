@@ -1,6 +1,6 @@
 {
   "name": "lifecycle-notifier",
-  "version": "1.2.1",
+  "version": "2.0.0-beta.2",
   "description": "Provides lifecycle notifications for your Strapi app. Get notified about entity creation, updates, and deletions, with customizable email templates.",
   "keywords": [],
   "homepage": "https://github.com/LAZONEDEV/lifecycle-notifier-strapi-plugin",
@@ -86,6 +86,7 @@
     "@strapi/sdk-plugin": "^5.2.7",
     "@strapi/strapi": "^5.0.6",
     "@strapi/typescript-utils": "^5.0.6",
+    "@types/jest": "^29.5.14",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "eslint": "^9.17.0",
