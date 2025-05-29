@@ -8,6 +8,8 @@ export enum RecipientType {
   FROM_THE_ENTRY_RELATION = "FROM_THE_ENTRY_RELATION",
   // for custom value
   CUSTOM = "CUSTOM",
+  // For dynamic recipient determination based on field values
+  FROM_ENTRY_FIELD_MAPPING = "FROM_ENTRY_FIELD_MAPPING",
 }
 
 export enum EventType {

@@ -128,6 +128,9 @@ The Recipient field can have three types value: `ENV`, `MODEL`, and `CUSTOM`.
 - `CUSTOM` Recipient:
   You can use this type when you add subscriptions in the plugins configurations. Learn more about how to add subscriptions in the plugins configurations below.
 
+- `FROM_ENTRY_FIELD_MAPPING` Recipient:
+  This type allows you to dynamically map recipients based on the value of a specific entry attribute. You can define multiple value-to-email mappings and specify a default email if no match is found. The matching is case-insensitive. See the example configuration below for usage.
+
 ## Interceptors
 
 An Interceptor is a JavaScript function defined in your plugin configuration that allows you to modify or compute new values for the entry being processed. These new values can then be used within the notification template.
@@ -184,6 +187,18 @@ You can also add subscriptions from the plugin configuration. This allows you to
               "type": "CUSTOM",
               "value": "custom@gmail.com"
             }
+            {
+                "type": "FROM_ENTRY_FIELD_MAPPING",
+                "value": {
+                  "field": "name",
+                  "targets": [
+                    { "value": "Cotonou", "email": "cotonou@example.com" },
+                    { "value": "Parakou", "email": "parakou@example.com" },
+                    { "value": "Porto", "email": "porto@example.com" }
+                  ],
+                  "defaultEmail": "default@example.com"
+                }
+              }
           ],
           "content": "Just send the name: <%= name =>",
           "mediaFields": ["image"],
