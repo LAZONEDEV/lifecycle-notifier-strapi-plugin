@@ -82,6 +82,18 @@ export default ({ env }) => {
                 type: "FROM_THE_ENTRY_RELATION",
                 value: "createdBy.email",
               },
+              {
+                type: "FROM_ENTRY_FIELD_MAPPING",
+                value: {
+                  field: "bureau",
+                  targets: [
+                    { value: "Cotonou", email: "cotonou@example.com" },
+                    { value: "Parakou", email: "parakou@example.com" },
+                    { value: "Porto", email: "porto@example.com" },
+                  ],
+                  defaultEmail: "default@example.com",
+                },
+              },
             ],
             content:
               "The planet <%= name %> has been discovered on <%= formattedDiscoveryDate %>!",

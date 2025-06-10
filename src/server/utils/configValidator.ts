@@ -29,7 +29,28 @@ export const subscriptionSchema = {
             enum: Object.keys(RecipientType),
           },
           value: {
-            type: "string",
+            oneOf: [
+              { type: "string" },
+              {
+                type: "object",
+                properties: {
+                  field: { type: "string" },
+                  targets: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        value: { type: "string" },
+                        email: { type: "string" },
+                      },
+                      required: ["value", "email"],
+                    },
+                  },
+                  defaultEmail: { type: "string" },
+                },
+                required: ["field", "targets"],
+              },
+            ],
           },
         },
         required: ["type", "value"],

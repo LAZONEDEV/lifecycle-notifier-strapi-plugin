@@ -1,8 +1,17 @@
 import { EventType, RecipientType } from "../enums/index";
 
+export interface FieldMapping {
+  field: string;
+  targets: {
+    value: string;
+    email: string;
+  }[];
+  defaultEmail?: string;
+}
+
 export interface RecipientOptionType {
   type: RecipientType;
-  value: string;
+  value: string | FieldMapping;
 }
 
 export interface SubscriptionEntry {

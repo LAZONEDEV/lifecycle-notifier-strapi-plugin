@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0]
+
+### Added
+
+- Dynamic recipient mapping based on specific entry attribute with case-insensitive matching
+
 ## [1.2.0]
 
 ### Added
